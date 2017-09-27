@@ -22,7 +22,7 @@ echo '
 <div class="">
           <div class="page-title">
             <div class="title_left">
-              <h3> Media Gallery <small> gallery design</small> </h3>
+              <h3> Media Gallery </h3>
             </div>
 
             <div class="title_right">
@@ -39,12 +39,11 @@ echo '
           </div>
           <div class="clearfix"></div>
         
-
           <div class="row">
             <div class="col-md-12">
               <div class="x_panel">
                 <div class="x_title">
-                  <h2>Media Gallery <small> gallery design </small></h2>
+                 <small>Hover to Edit or Download</small> 
                   <ul class="nav navbar-right panel_toolbox">
                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                     </li>
@@ -63,7 +62,6 @@ echo '
                   <div class="clearfix"></div>
                 </div>
      
-
 
 <div class="x_content">
 		<div class="row">

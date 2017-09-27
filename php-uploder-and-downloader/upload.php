@@ -88,7 +88,7 @@ if(isset($_POST['button']))
 	 <div class="row">
 			<div class="col-md-3">
          <form action="" method="post" enctype="multipart/form-data">
-                  <h2><span class='label label-primary'>Upload Files Form Here:</span></h2><br>
+                  <h2><span class='label label-info'>Upload Files Form Here:</span></h2><br>
                   </div>
 			<div class="col-md-3 text-right">
 				<input style="margin-top: 10px;" type="file" name="files[]" multiple="">

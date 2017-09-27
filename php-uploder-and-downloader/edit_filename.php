@@ -75,7 +75,7 @@ if(isset($_POST['delete']))
 			        <div class="form-group">
 			            <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
 			                <div class="col-md-9 col-sm-9 col-xs-12">
-			                    <button type="submit" name="save" class="btn btn-success"> Save Name</button>
+			                    <button type="submit" name="save" class="btn btn-success" > Save Name</button>
 			                    <button type="submit" name="delete" class="btn btn-danger" onclick="return confirm('Are you sure?')"><i class="glyphicon glyphicon-trash"></i> Delete File</button>
 			                    <button formaction="upload.php" class="btn btn-info">Show Files</button>
 			                 </div>

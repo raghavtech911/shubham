@@ -28,8 +28,9 @@ $nameoffile = $_SESSION['varname'];
 			$downloads = $row['downloads'];
 			$downloads += 1;
 			if ($downloads > $maxdownloads) {
-				echo "This key has expired (Only One Download Allowed).<br><br>
-					<a href='../upload.php'>Go Back</a>";
+				echo "<script> alert('Key Expired, Only one Download Allowed !!!')</script>";
+					echo '<script>setTimeout(function () {window.location.href = "../upload.php"; },1000); </script>';
+					
 			}else{
 				$sql = sprintf("UPDATE download SET downloads = '".$downloads."' WHERE uniqueid= '%s'",mysqli_real_escape_string($conn, $id));
 				$incrementdownloads = $conn->query($sql);

@@ -76,7 +76,7 @@ $_SESSION['varname'] = $filename;
 
             $bodyContent = '<h1>This is the Generated link.</h1>';
             $bodyContent .= '<a href="'.$linkto.'">download</a>';
-            $bodyContent .= '<p>This is the Email sent from localhost using PHP script by <b>Techinfini</b></p>';
+            $bodyContent .= '<p>Only One Download Allowed. This is the Email sent from localhost using PHP script by <b>Techinfini</b></p>';
 
             $mail->Subject = 'Email from Shubham with file link';
             $mail->Body    = $bodyContent;
@@ -112,6 +112,7 @@ $_SESSION['varname'] = $filename;
                       
                       <!-- <a href="<?php //echo $folderpath .'download.php?id='. $key ?>">Click to open</a> -->
                       <button formaction="<?php echo $folderpath .'download.php?id='. $key ?>">Download</button>
+                      <small>Only One Download Allowed</small>
 
                     </div>
                     </div>
