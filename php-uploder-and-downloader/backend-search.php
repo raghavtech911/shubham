@@ -13,7 +13,8 @@ if($conn === false){
                       <tr>
                         <th>ID</th>
                         <th>Name of file</th>
-                        <th>Size of File</th>
+                        <th>Edit</th>
+                        <th>Size <small>(bytes)</small></th>
                         <th>Type of File</th>
                         <th>Get File</th>
                       </tr>
@@ -33,6 +34,7 @@ if(isset($term)){
                         echo "<tr>";
                         echo "<th scope='row'>".$row['file_id']."</th>";
                         echo "<td>".$row['file_name']." </td>";
+                          echo "<th id='edit' scope='row'> <a href='edit_filename.php?name1=".$nameoffile."'>Edit</a></th>";
                         echo "<td>".$row['file_size']."</td>";
                         echo "<td>".$row['file_type']."</td>";
                         echo "<td><a href='send.php?name=".$nameoffile."' class='btn btn-primary btn-large'>Get URL</a></td>";
