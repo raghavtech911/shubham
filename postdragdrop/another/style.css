@@ -13,26 +13,7 @@
     display: none;
 }
 
-.red{
-	background-color:#ff9999;
-}
 
 .green{
 	background-color:lightgreen;
-}
-
-.blue{
-	background-color:lightblue;
-}
-
-.pink{
-	background-color: #ffb3ff;
-}
-
-.dark{
-	background-color:#df9f9f;
-}
-
-.light{
-	background-color: #cc99ff;
 }

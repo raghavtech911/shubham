@@ -1,5 +1,12 @@
 $(document).ready(function() {
 
+
+$('.box-item').draggable({
+    cursor: 'move',
+    helper: "clone"
+  });
+
+
 /* on hover slidedown */
 $('.flip1').mouseover(function(){
         $('.panel1').slideDown('slow');
@@ -52,11 +59,6 @@ $('.flip6').click(function(){
   //    helper: "clone"
   // });
 
-$('.box-item').draggable({
-    cursor: 'move',
-    helper: "clone"
-  });
-
 // $("#category1").droppable({
 // over: function(event, ui){
 //         arr1.push(event.target.id);
@@ -64,7 +66,6 @@ $('.box-item').draggable({
 //     });
 
 
- 
   var string1 = {};
   var category1 = [] 
    var string2 = {};
@@ -83,56 +84,47 @@ $('.box-item').draggable({
   $("#container1").droppable({
     drop: function(event, ui) {
       var itemid = $(event.originalEvent.toElement).attr("itemid");
-      $('.newaddedclass').each(function() {
-        if ($(this).attr("itemid") === itemid) {
-          $(this).appendTo("#container1");
+      //$('.newaddedclass').each(function() {
+       // if ($(this).attr("itemid") === itemid) {
+          //$(this).appendTo("#container1");
         }
-      });
-    }
+      //});
+    //}
   });
 
-var arr1=[];
-var arr2=[];
-
-var arr3=[];
-var arr4=[];
-
-var arr5=[];
-var arr6=[];
-
-var arr7=[];
-var arr8=[];
-
-var arr9=[];
-var arr10=[];
-
-var arr11=[];
-var arr12=[];
+var arr1=[]; var arr2=[]; var arr3=[]; var arr4=[]; var arr5=[]; var arr6=[]; var arr7=[]; var arr8=[]; var arr9=[]; var arr10=[];
+var arr11=[]; var arr12=[]; var arr0=[];
 
   $("#category1").droppable({
     drop: function(event, ui) {
 
         $(ui.draggable).addClass("newaddedclass");
-        $(ui.draggable).addClass("red");
+        $(ui.draggable).addClass("green");
        
        // $(ui.draggable).attr('id', 'newid');
        // console.log( event.target.id );
         
-
         //         arr1[i].pop(event.target.id);  
         //arr1.push(event.target.id);
         
-       
         var itemid = $(event.originalEvent.toElement).attr("itemid");
         
-        $('.newaddedclass').each(function() {
-            if ($(this).attr("itemid") === itemid) {
-                    //var draggable = ui.draggable;
-                    //var id = draggable.attr("itemid");
+       // $('.newaddedclass').each(function() {
+           // if ($(this).attr("itemid") === itemid) {
+                   // var draggable = ui.draggable;
+                   // var id = draggable.attr("itemid");
+                    
+                    tag=ui.draggable;
+                    tag.clone().attr("itemid", "copy-" + tag.attr("itemid")).appendTo("#category1" );
+                    
+                    // var dell = "<span style='text-align: right;' id='dell'>delete</span>";
+                    // $(".newaddedclass").after(dell);
+                    // $("#dell").click(function(){
+                    //     $(".green").remove();
+                    // });
  
-                $(this).clone().appendTo("#category1");
+               // $(this).clone().appendTo("#category1");
                 
-               // var aa=[0,1,2,3,4,5,6,7,8,9,10];
                 
                     // var employee = {
                     // "key": itemid,
@@ -152,55 +144,43 @@ var arr12=[];
                 arr2.push(itemid);
                 arr1[type]= arr2;
                 console.log(arr1);
-            }
-        });
-    }
+
+            //}
+        //});
+    }//,
+    // accept: function(draggable) {
+     //$(this).find("#copy-" + draggable.attr("itemid")).length == 0;
+  //}
    });
 
-
-
   $("#category2").droppable({
-    drop: function(event, ui) {
-        $(ui.draggable).addClass("newaddedclass");
-          $(ui.draggable).addClass("green");
-        //console.log( event.target.id );
-        //arr2.push(event.target.id);
-
-        // string2.category2 = category2;
-      var itemid = $(event.originalEvent.toElement).attr("itemid");
-      $('.newaddedclass').each(function() {
-        if ($(this).attr("itemid") === itemid) {
-          $(this).clone().appendTo("#category2");
-
-                  //  var employee = {
-                  //  key: itemid,                
-         //  }
-               // string2.category2.push(employee);
-                   // console.log(JSON.stringify(string2));
-
-                var type='category2';
-                arr4.push(itemid);
-                arr3[type]= arr4;
-                console.log(arr3);
+        drop: function(event, ui) {
+            //$(ui.draggable).addClass("newaddedclass");
+            $(ui.draggable).addClass("green");
+            var itemid = $(event.originalEvent.toElement).attr("itemid");
+            tag=ui.draggable;
+            tag.clone().attr("itemid", "copy-" + tag.attr("itemid")).appendTo("#category2" );
+            var type='category2';
+            arr4.push(itemid);
+            arr3[type]= arr4;
+            console.log(arr3);
         }
-      });
-
-    }
-  });
-
+});
 
 
   $("#category3").droppable({
     drop: function(event, ui) {
         $(ui.draggable).addClass("newaddedclass");
-          $(ui.draggable).addClass("blue");
+          $(ui.draggable).addClass("green");
         //console.log( event.target.id );
         
         // string3.category3 = category3;
       var itemid = $(event.originalEvent.toElement).attr("itemid");
-      $('.newaddedclass').each(function() {
-        if ($(this).attr("itemid") === itemid) {
-          $(this).clone().appendTo("#category3");
+      //$('.newaddedclass').each(function() {
+       // if ($(this).attr("itemid") === itemid) {
+        //  $(this).clone().appendTo("#category3");
+        tag=ui.draggable;
+                    tag.clone().attr("itemid", "copy-" + tag.attr("itemid")).appendTo("#category3" );
             //         var employee = {
             //         key: itemid,              
             // }
@@ -212,8 +192,8 @@ var arr12=[];
                 arr5[type]= arr6;
                 console.log(arr5);
                }
-          });
-        }
+        //   });
+        // }
   });
 
 
@@ -221,14 +201,17 @@ var arr12=[];
     $("#category4").droppable({
         drop: function(event, ui) {
             $(ui.draggable).addClass("newaddedclass");
-              $(ui.draggable).addClass("pink");
+              $(ui.draggable).addClass("green");
             //console.log( event.target.id );
             
             //string4.category4 = category4;
             var itemid = $(event.originalEvent.toElement).attr("itemid");
-            $('.newaddedclass').each(function() {
-                if ($(this).attr("itemid") === itemid) {
-                    $(this).clone().appendTo("#category4");
+           // $('.newaddedclass').each(function() {
+             //   if ($(this).attr("itemid") === itemid) {
+               //     $(this).clone().appendTo("#category4");
+
+               tag=ui.draggable;
+                    tag.clone().attr("itemid", "copy-" + tag.attr("itemid")).appendTo("#category4" );
             //         var employee = {
             //         key: itemid,
             // }
@@ -240,8 +223,8 @@ var arr12=[];
                 arr7[type]= arr8;
                 console.log(arr7);
         }
-      });
-    }
+    //   });
+    // }
   });
 
 
@@ -249,14 +232,16 @@ var arr12=[];
   $("#category5").droppable({
     drop: function(event, ui) {
         $(ui.draggable).addClass("newaddedclass");
-          $(ui.draggable).addClass("dark");
+          $(ui.draggable).addClass("green");
         //console.log( event.target.id );
          
          // string5.category5 = category5;
       var itemid = $(event.originalEvent.toElement).attr("itemid");
-      $('.newaddedclass').each(function() {
-        if ($(this).attr("itemid") === itemid) {
-          $(this).clone().appendTo("#category5");
+      // $('.newaddedclass').each(function() {
+      //   if ($(this).attr("itemid") === itemid) {
+      //     $(this).clone().appendTo("#category5");
+      tag=ui.draggable;
+                    tag.clone().attr("itemid", "copy-" + tag.attr("itemid")).appendTo("#category5" );
             //         var employee = {
             //         key: itemid,   
             // }
@@ -269,8 +254,8 @@ var arr12=[];
                 arr9[type]= arr10;
                 console.log(arr9);
         }
-      });
-    }
+    //   });
+    // }
   });
 
 
@@ -278,14 +263,16 @@ var arr12=[];
   $("#category6").droppable({
     drop: function(event, ui) {
         $(ui.draggable).addClass("newaddedclass");
-          $(ui.draggable).addClass("light");
+          $(ui.draggable).addClass("green");
        // console.log( event.target.id );
         
         // string6.category6 = category6;
       var itemid = $(event.originalEvent.toElement).attr("itemid");
-      $('.newaddedclass').each(function() {
-        if ($(this).attr("itemid") === itemid) {
-          $(this).clone().appendTo("#category6");
+      // $('.newaddedclass').each(function() {
+      //   if ($(this).attr("itemid") === itemid) {
+      //     $(this).clone().appendTo("#category6");
+      tag=ui.draggable;
+                    tag.clone().attr("itemid", "copy-" + tag.attr("itemid")).appendTo("#category6" );
             //         var employee = {
             //         i: itemid,
             // }
@@ -297,18 +284,16 @@ var arr12=[];
                 arr11[type]= arr12;
                 console.log(arr11);
         }
-      });
-    }
+    //   });
+    // }
   });
 
 
-  // $("#category1").dragable({
+  // $(".green").draggable({
   //       drop: function(event, ui) {
   //         //  $(ui.dragable).draggable('destroy');
   //            // $(ui.dragable).remove();
   //       }
   // });
-
-
 
 });
