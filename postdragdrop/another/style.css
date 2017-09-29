@@ -1,0 +1,38 @@
+
+.box-container {
+	height: 100%;
+}
+
+.box-item {
+	width: 100%;
+	z-index: 1000;
+}
+
+.panel1, .panel2, .panel3, .panel4, .panel5 , .panel6{
+    padding: 50px;
+    display: none;
+}
+
+.red{
+	background-color:#ff9999;
+}
+
+.green{
+	background-color:lightgreen;
+}
+
+.blue{
+	background-color:lightblue;
+}
+
+.pink{
+	background-color: #ffb3ff;
+}
+
+.dark{
+	background-color:#df9f9f;
+}
+
+.light{
+	background-color: #cc99ff;
+}
