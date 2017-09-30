@@ -81,14 +81,21 @@ $('.box-item').draggable({
     revert: 'invalid'
   });
 
+var counter = 0;
 
   $("#container1").droppable({
     drop: function(event, ui) {
       var itemid = $(event.originalEvent.toElement).attr("itemid");
-            ui.draggable.remove(); // to remove the dragged item
+            if(ui.draggable.remove()){
+                counter-=1;
+            } // to remove the dragged item
             var k =ui.draggable.attr("itemid");
+            if(counter>0){alert('1'); }else{
             //if($(".box-item").attr("itemid")== k ){
             $(".box-item").removeClass("green"); // to remove the green background
+            
+           }
+
            //}
            //remove the element form array 
             arr2.pop(itemid);
@@ -124,6 +131,7 @@ $('.box-item').draggable({
                     tag=ui.draggable;
                     var a = tag.clone().attr("itemid", "copy-" + tag.attr("itemid")).appendTo("#category1" ).draggable({ cursor: 'move', 
                             helper: "clone", revert: 'invalid'});
+                        counter+=1;
 
                     $(a).addClass("newaddedclass");
                     $(a).removeClass("green");
@@ -161,6 +169,7 @@ $('.box-item').draggable({
             tag=ui.draggable;
             var a = tag.clone().attr("itemid", "copy-" + tag.attr("itemid")).appendTo("#category2" ).draggable({cursor: 'move',
                     helper: "clone", revert: 'invalid'});
+            counter+=1;
             $(a).addClass("newaddedclass");
             $(a).removeClass("green");
             $(ui.draggable).addClass("green");
@@ -187,15 +196,16 @@ $('.box-item').draggable({
                 alert('Can Drag One Post Only Once In One Category');
             }
                 else{
-             //       if($("#category3 > #"+itemid1).attr("id")==$("#category3 > #"+itemid1).attr("id")){
-               //         alert('same element');
-                 //   }
+                // if($(ui.draggable).attr('copy-'+"itemid") === $("#"+itemid1).attr('copy-'+itemid)){
+                  //      alert('same element');
+                    //}
       //$('.newaddedclass').each(function() {
        // if ($(this).attr("itemid") === itemid) {
         //  $(this).clone().appendTo("#category3");
         tag=ui.draggable;
                     var a = tag.clone().attr("itemid", "copy-" + tag.attr("itemid")).appendTo("#category3" ).draggable({ cursor: 'move',
                             helper: "clone", revert: 'invalid' });
+                    counter+=1;
             $(a).addClass("newaddedclass");
             $(ui.draggable).addClass("green");
             $(a).attr('id',itemid);
@@ -237,6 +247,7 @@ $('.box-item').draggable({
                     tag=ui.draggable;
                     var a = tag.clone().attr("itemid", "copy-" + tag.attr("itemid")).appendTo("#category4" ).draggable({ cursor: 'move', 
                             helper: "clone", revert: 'invalid' });
+                    counter+=1;
                     $(a).addClass("newaddedclass");
                     $(ui.draggable).addClass("green");
                         $(a).attr('id',itemid);
@@ -268,6 +279,7 @@ $('.box-item').draggable({
       tag=ui.draggable;
                     var a = tag.clone().attr("itemid", "copy-" + tag.attr("itemid")).appendTo("#category5" ).draggable({ cursor: 'move',
                             helper: "clone", revert: 'invalid' });
+                    counter+=1;
                     $(a).addClass("newaddedclass");
                      $(ui.draggable).addClass("green");
                          $(a).attr('id',itemid);
@@ -292,6 +304,7 @@ $('.box-item').draggable({
         tag=ui.draggable;
         var a = tag.clone().attr("itemid", "copy-" + tag.attr("itemid")).appendTo("#category6" ).draggable({ cursor: 'move',
                 helper: "clone", revert: 'invalid' });
+        counter+=1;
         $(a).addClass("newaddedclass");
         $(ui.draggable).addClass("green");
             $(a).attr('id',itemid);
