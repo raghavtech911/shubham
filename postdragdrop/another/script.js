@@ -90,7 +90,7 @@ var counter = 0;
                 counter-=1;
             } // to remove the dragged item
             var k =ui.draggable.attr("itemid");
-            if(counter>0){alert('1'); }else{
+            if(counter>0){}else{
             //if($(".box-item").attr("itemid")== k ){
             $(".box-item").removeClass("green"); // to remove the green background
             
@@ -202,7 +202,7 @@ var counter = 0;
       //$('.newaddedclass').each(function() {
        // if ($(this).attr("itemid") === itemid) {
         //  $(this).clone().appendTo("#category3");
-        tag=ui.draggable;
+           tag=ui.draggable;
                     var a = tag.clone().attr("itemid", "copy-" + tag.attr("itemid")).appendTo("#category3" ).draggable({ cursor: 'move',
                             helper: "clone", revert: 'invalid' });
                     counter+=1;

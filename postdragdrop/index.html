@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Drag Drop</title>  
+        <!-- Latest compiled and minified CSS -->
+
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    </head>
+
+
+    <body>
+   
+        <div id="dhtmlgoodies_dragDropContainer">
+            <div id="topBar">
+                <img src="/images/heading3.gif">
+            </div>
+            <div id="dhtmlgoodies_listOfItems">
+                <div>
+                    <p>Available Posts</p>
+                    <ul id="allItems">
+                        <li id="node1">POST 1</li>
+                        <li id="node2">POST 2</li>
+                        <li id="node3">POST 3</li>
+                        <li id="node4">POST 4</li>
+                        <li id="node5">POST 5</li>
+                        <li id="node6">POST 6</li>
+                        <li id="node7">POST 7</li>
+                        <li id="node8">POST 8</li>
+                        <li id="node9">POST 9</li>
+                        <li id="node10">POST 10</li>
+                        <li id="node11">POST 11</li>
+                        <li id="node12">POST 12</li>
+                        <li id="node13">POST 13</li>
+                        <li id="node14">POST 14</li>
+                        <li id="node15">POST 15</li>
+                        <li id="node16">POST 16</li>
+                        <li id="node17">POST 17</li>
+                        <li id="node18">POST 18</li>
+                        <li id="node19">POST 19</li>
+                        <li id="node20">POST 20</li>
+                    </ul>
+                </div>
+            </div>
+          
+           
+            <div id="dhtmlgoodies_mainContainer">
+                <!-- ONE <UL> for each "room" -->
+
+                <div id="ss">
+                        <p>Category A</p>
+                <span id="panel">
+                    <ul id="box1">  </ul>
+                </span>
+                </div>
+
+                <div>
+                    <p>Category B</p>
+                    <ul id="box2"></ul>
+                </div>
+                <div>
+                    <p>Category C</p>
+                    <ul id="box3">
+                    </ul>
+                </div>
+                <div>
+                    <p>Category D</p>
+                    <ul id="box4"></ul>
+                </div>
+                <div>
+                    <p>Category E</p>
+                    <ul id="box5">
+                    </ul>
+                </div>
+            </div>
+        </div>
+       
+        <div id="footer">
+            <form action="aPage.html" method="post"><input type="button" onclick="saveDragDropNodes()" value="Save"></form>
+        </div>
+        <ul id="dragContent"></ul>
+        <div id="dragDropIndicator"><img src="images/insert.gif"></div>
+        <div id="saveContent">
+            <!-- THIS ID IS ONLY NEEDED FOR THE DEMO -->
+        </div>
+
+get data
+        <form name="myForm" method="post" action="save.php" onsubmit="saveDragDropNodes()"> 
+<input type="hidden" name="listOfItems" value="">
+<input type="submit" value="Save" name="saveButton">
+</form>
+
+        <script src="script.js"></script> 
+    </body>
+</html>
