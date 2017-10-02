@@ -1,173 +1,199 @@
 $(function() {
 
-
-
-    function test(arr){
-        if ($(".panel2").is(":hidden")) {
-                if ($("#container1 > .green").attr("itemid") == $("#category2 > .newaddedclass").attr("id")) {
+// function to hide color of other categories if one category is open
+    function test(panel, cat, arr){
+        if ($("."+panel).is(":hidden")) {
+                if ($("#container1 > .green").attr("itemid") == $("#"+cat +"> .newaddedclass").attr("id")) {
                     $("#container1 > .green").removeClass("green");
                 }
             }
             //if category is visible show the elements of Post in green color
-            if ($(".panel2").is(":visible")) {
+            if ($("."+panel).is(":visible")) {
                 jQuery.each(arr, function(val) {
                     $("#container1 > #" + arr[val]).addClass("green");
                 });
             }
     }
+////////////////////////////////////////////////////////////////////////////
 
     $('.flip1').click(function() {
 
         //to make other elements hide
         $('.panel2').slideUp("fast",function(){
-            test(arr4);
+            test('panel2','category2',arr4);
         });
         $('.panel3').slideUp("fast",function(){
-            
+            test('panel3','category3',arr6);
         });
-        $('.panel4').slideUp("fast");
-        $('.panel5').slideUp("fast");
-        $('.panel6').slideUp("fast");
+        $('.panel4').slideUp("fast",function(){
+            test('panel4','category4',arr8);
+        });
+        $('.panel5').slideUp("fast",function(){
+            test('panel5','category5',arr10);
+        });
+        $('.panel6').slideUp("fast",function(){
+            test('panel6','category6',arr12);
+        });
+
 
         $('.panel1').slideToggle('slow', function() {
-            //if category is hidden don't show the elements of Post in green color
-            if ($(this).is(":hidden")) {
-                if ($("#container1 > .green").attr("itemid") == $("#category1 > .newaddedclass").attr("id")) {
-                    $("#container1 > .green").removeClass("green");
-                }
-            }
-            //if category is visible show the elements of Post in green color
-            if ($(this).is(":visible")) {
-                jQuery.each(arr2, function(val) {
-                    $("#container1 > #" + arr2[val]).addClass("green");
-                });
-            }
-        });
+            test('panel1','category1',arr2);
+         });
     });
+
+    ///////////////////////////////////////////////////////
 
     $('.flip2').click(function() {
-        $('.panel1').slideUp("fast");
-        $('.panel3').slideUp("fast");
-        $('.panel4').slideUp("fast");
-        $('.panel5').slideUp("fast");
-        $('.panel6').slideUp("fast");
+        $('.panel1').slideUp("fast",function(){
+            test('panel1','category1',arr2);
+        });
+        $('.panel3').slideUp("fast",function(){
+            test('panel3','category3',arr6);
+        });
+        $('.panel4').slideUp("fast",function(){
+            test('panel4','category4',arr8);
+        });
+        $('.panel5').slideUp("fast",function(){
+            test('panel5','category5',arr10);
+        });
+        $('.panel6').slideUp("fast",function(){
+            test('panel6','category6',arr12);
+        });
+
         $('.panel2').slideToggle('slow', function() {
-              //if category is hidden don't show the elements of Post in green color
-             if ($(this).is(":hidden")) {
-                if ($("#container1 > .green").attr("itemid") == $("#category2 > .newaddedclass").attr("id")) {
-                    $("#container1 > .green").removeClass("green");
-                }
-            }
-            //if category is visible show the elements of Post in green color
-            if ($(this).is(":visible")) {
-                jQuery.each(arr4, function(val) {
-                    $("#container1 > #" + arr4[val]).addClass("green");
-                });
-            }
+            test('panel2','category2',arr4);
         });
     });
+//////////////////////////////////////////////////////////
 
     $('.flip3').click(function() {
-        $('.panel1').slideUp("fast");
-        $('.panel2').slideUp("fast");
-        $('.panel4').slideUp("fast");
-        $('.panel5').slideUp("fast");
-        $('.panel6').slideUp("fast");
+        $('.panel1').slideUp("fast",function(){
+            test('panel1','category1',arr2);
+        });
+        $('.panel2').slideUp("fast",function(){
+            test('panel2','category2',arr4);
+        });
+        $('.panel4').slideUp("fast",function(){
+            test('panel4','category4',arr8);
+        });
+        $('.panel5').slideUp("fast",function(){
+            test('panel5','category5',arr10);
+        });
+        $('.panel6').slideUp("fast",function(){
+            test('panel6','category6',arr12);
+        });
         $('.panel3').slideToggle('slow',function(){
-              //if category is hidden don't show the elements of Post in green color
-            if ($(this).is(":hidden")) {
-                if ($("#container1 > .green").attr("itemid") == $("#category3 > .newaddedclass").attr("id")) {
-                    $("#container1 > .green").removeClass("green");
-                }
-            }
-            //if category is visible show the elements of Post in green color
-            if ($(this).is(":visible")) {
-                jQuery.each(arr6, function(val) {
-                    $("#container1 > #" + arr6[val]).addClass("green");
-                });
-            }
+            test('panel3','category3',arr6);
         });
     });
-
+/////////////////////////////////////////////////////
     $('.flip4').click(function() {
-        $('.panel1').slideUp("fast");
-        $('.panel2').slideUp("fast");
-        $('.panel3').slideUp("fast");
-        $('.panel5').slideUp("fast");
-        $('.panel6').slideUp("fast");
+        $('.panel1').slideUp("fast",function(){
+            test('panel1','category1',arr2);
+        });
+        $('.panel2').slideUp("fast",function(){
+            test('panel2','category2',arr4);
+        });
+        $('.panel3').slideUp("fast",function(){
+            test('panel3','category3',arr6);
+        });
+        $('.panel5').slideUp("fast",function(){
+            test('panel5','category5',arr10);
+        });
+        $('.panel6').slideUp("fast",function(){
+            test('panel6','category6',arr12);
+        });
         $('.panel4').slideToggle('slow',function(){
-              //if category is hidden don't show the elements of Post in green color
-            if ($(this).is(":hidden")) {
-                if ($("#container1 > .green").attr("itemid") == $("#category4 > .newaddedclass").attr("id")) {
-                    $("#container1 > .green").removeClass("green");
-                }
-            }
-            //if category is visible show the elements of Post in green color
-            if ($(this).is(":visible")) {
-                jQuery.each(arr8, function(val) {
-                    $("#container1 > #" + arr8[val]).addClass("green");
-                });
-            }
+            test('panel4','category4',arr8);
         });
     });
+////////////////////////////////////////////////////////////    
 
     $('.flip5').click(function() {
-        $('.panel1').slideUp("fast");
-        $('.panel2').slideUp("fast");
-        $('.panel3').slideUp("fast");
-        $('.panel4').slideUp("fast");
-        $('.panel6').slideUp("fast");
+        $('.panel1').slideUp("fast",function(){
+            test('panel1','category1',arr2);
+        });
+        $('.panel2').slideUp("fast",function(){
+            test('panel2','category2',arr4);
+        });
+        $('.panel3').slideUp("fast",function(){
+            test('panel3','category3',arr6);
+        });
+        $('.panel4').slideUp("fast",function(){
+            test('panel4','category4',arr8);
+        });
+        $('.panel6').slideUp("fast",function(){
+            test('panel6','category6',arr12);
+        });
         $('.panel5').slideToggle('slow',function(){
-              //if category is hidden don't show the elements of Post in green color
-            if ($(this).is(":hidden")) {
-                if ($("#container1 > .green").attr("itemid") == $("#category5 > .newaddedclass").attr("id")) {
-                    $("#container1 > .green").removeClass("green");
-                }
-            }
-            //if category is visible show the elements of Post in green color
-            if ($(this).is(":visible")) {
-                jQuery.each(arr10, function(val) {
-                    $("#container1 > #" + arr10[val]).addClass("green");
-                });
-            }
+            test('panel5','category5',arr10);
         });
     });
-
+////////////////////////////////////////////////////////
     $('.flip6').click(function() {
-            $('.panel1').slideUp("fast");
-            $('.panel2').slideUp("fast");
-            $('.panel3').slideUp("fast");
-            $('.panel4').slideUp("fast");
-            $('.panel5').slideUp("fast");
+            $('.panel1').slideUp("fast",function(){
+            test('panel1','category1',arr2);
+        });
+            $('.panel2').slideUp("fast",function(){
+            test('panel2','category2',arr4);
+        });
+            $('.panel3').slideUp("fast",function(){
+            test('panel3','category3',arr6);
+        });
+            $('.panel4').slideUp("fast",function(){
+            test('panel4','category4',arr8);
+        });
+            $('.panel5').slideUp("fast",function(){
+            test('panel5','category5',arr10);
+        });
         $('.panel6').slideToggle('slow',function(){
-              //if category is hidden don't show the elements of Post in green colors
-            if ($(this).is(":hidden")) {
-                if ($("#container1 > .green").attr("itemid") == $("#category6 > .newaddedclass").attr("id")) {
-                    $("#container1 > .green").removeClass("green");
-                }
-            }
-            //if category is visible show the elements of Post in green color
-            if ($(this).is(":visible")) {
-                jQuery.each(arr12, function(val) {
-                    $("#container1 > #" + arr12[val]).addClass("green");
-                });
-            }
+            test('panel6','category6',arr12);
         });
     });
+ ///////////////////////////////////////////////////////////////////////////////////
+
+ //on hover dropable item slide down ...
+ 
+$(".flip1").droppable({
+        over: function(){
+            $('.panel1').slideDown("slow");
+        }
+    });   
+
+$(".flip2").droppable({
+        over: function(){
+            $('.panel2').slideDown("slow");
+        }
+    });   
+
+$(".flip3").droppable({
+        over: function(){
+            $('.panel3').slideDown("slow");
+        }
+    });   
+
+$(".flip4").droppable({
+        over: function(){
+            $('.panel4').slideDown("slow");
+        }
+    });   
+
+$(".flip5").droppable({
+        over: function(){
+            $('.panel5').slideDown("slow");
+        }
+    });   
+
+$(".flip6").droppable({
+        over: function(){
+            $('.panel6').slideDown("slow");
+        }
+    });   
+/////////////////////////////////////////////////////////////////
 
     var arr0 = []; //big array
-    var arr1 = [];
-    var arr2 = [];
-    var arr3 = [];
-    var arr4 = [];
-    var arr5 = [];
-    var arr6 = [];
-    var arr7 = [];
-    var arr8 = [];
-    var arr9 = [];
-    var arr10 = [];
-    var arr11 = [];
-    var arr12 = [];
+    var arr1 = []; var arr2 = []; var arr3 = []; var arr4 = []; var arr5 = []; var arr6 = []; var arr7 = []; var arr8 = []; var arr9 = [];
+    var arr10 = []; var arr11 = []; var arr12 = [];
     var counter = 0;
 
     $('.box-item').draggable({
@@ -175,6 +201,7 @@ $(function() {
         helper: "clone",
         revert: 'invalid'
     });
+
 
     $("#container1").droppable({
         drop: function(event, ui) {
@@ -198,7 +225,7 @@ $(function() {
             console.log(arr0);
         }
     });
-
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     $("#category1").droppable({
         drop: function(event, ui) {
