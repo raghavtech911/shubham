@@ -191,10 +191,14 @@ $(".flip6").droppable({
     });   
 /////////////////////////////////////////////////////////////////
 
-    var arr0 = []; //big array
-    var arr1 = []; var arr2 = []; var arr3 = []; var arr4 = []; var arr5 = []; var arr6 = []; var arr7 = []; var arr8 = []; var arr9 = [];
-    var arr10 = []; var arr11 = []; var arr12 = [];
-    var counter = 0;
+    var main_array = []; //big array
+    var arr2 = []; 
+    var arr4 = [];
+    var arr6 = [];
+    var arr8 = [];
+    var arr10 = [];
+    var arr12 = [];
+    var counter = 0;   
 
     $('.box-item').draggable({
         cursor: 'move',
@@ -206,8 +210,9 @@ $(".flip6").droppable({
     $("#container1").droppable({
         drop: function(event, ui) {
             var itemid = $(event.originalEvent.toElement).attr("itemid");
+           // alert(itemid);
             if (ui.draggable.remove()) {
-                counter -= 1;
+                counter -= 1;// to count number
             } // to remove the dragged item
             var k = ui.draggable.attr("itemid");
             if (counter > 0) {} else {
@@ -216,13 +221,37 @@ $(".flip6").droppable({
             }
 
             //remove the element form array 
-            arr2.pop(itemid);
-            arr4.pop(itemid);
-            arr6.pop(itemid);
-            arr8.pop(itemid);
-            arr10.pop(itemid);
-            arr12.pop(itemid);
-            console.log(arr0);
+            var index1 = arr2.indexOf(itemid);
+            if (index1 > -1) { arr2.splice(index1, 1); }
+            //alert(arr2);
+            //arr1[category1] = arr2;
+            main_array[category1]= arr2;
+
+            var index2 = arr4.indexOf(itemid);
+            if (index2 > -1) { arr4.splice(index2, 1); }
+            main_array[category2]= arr4;            
+
+            var index3 = arr6.indexOf(itemid);
+            if (index3 > -1) { arr6.splice(index3, 1); }
+           // alert(arr6);
+            main_array[category3]= arr6;
+
+            var index4 = arr8.indexOf(itemid);
+            if (index4 > -1) { arr8.splice(index4, 1); }
+           // alert(arr8);
+            main_array[category4]= arr8;
+
+            var index5 = arr10.indexOf(itemid);
+            if (index5 > -1) { arr10.splice(index5, 1); }
+           // alert(arr10);
+            main_array[category5]= arr10;
+
+            var index6 = arr12.indexOf(itemid);
+            if (index6 > -1) { arr12.splice(index6, 1); }
+           // alert(arr12);
+            main_array[category6]= arr12;
+            
+            console.log(main_array);
         }
     });
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -238,7 +267,7 @@ $(".flip6").droppable({
             } else {
                 // alert('in else');
                 tag = ui.draggable;
-                var a = tag.clone().attr("itemid", "copy-" + tag.attr("itemid")).appendTo("#category1").draggable({
+                var a = tag.clone().attr("itemid",tag.attr("itemid")).appendTo("#category1").draggable({
                     cursor: 'move',
                     helper: "clone",
                     revert: 'invalid'
@@ -251,14 +280,17 @@ $(".flip6").droppable({
 
                 $(a).attr('id', itemid);
 
-                var type = 'category1';
+                // var type = 'category1';
+                // arr2.push(itemid);
+                // arr1[type] = arr2;
+
                 arr2.push(itemid);
-                arr1[type] = arr2;
+                main_array['category1']=arr2;
             }
         }
     });
-    arr0.push(arr1);
-    //  console.log(arr0);
+    //main_array.push(arr1);
+    //  console.log(main_array);
 
 
     $("#category2").droppable({
@@ -269,7 +301,12 @@ $(".flip6").droppable({
                 alert('Can Drag One Post Only Once In One Category');
             } else {
                 tag = ui.draggable;
-                var a = tag.clone().attr("itemid", "copy-" + tag.attr("itemid")).appendTo("#category2").draggable({
+                // var a = tag.clone().attr("itemid", "copy-" + tag.attr("itemid")).appendTo("#category2").draggable({
+                //     cursor: 'move',
+                //     helper: "clone",
+                //     revert: 'invalid'
+                // });
+                var a = tag.clone().attr("itemid",tag.attr("itemid")).appendTo("#category2").draggable({
                     cursor: 'move',
                     helper: "clone",
                     revert: 'invalid'
@@ -279,15 +316,19 @@ $(".flip6").droppable({
                 $(a).removeClass("green");
                 $(ui.draggable).addClass("green");
                 $(a).attr('id', itemid);
-                var type = 'category2';
+
+                // var type = 'category2';
+                // arr4.push(itemid);
+                // arr3[type] = arr4;
+                // // console.log(arr3);
+
                 arr4.push(itemid);
-                arr3[type] = arr4;
-                // console.log(arr3);
+                main_array['category2']=arr4;
             }
         }
     });
-    arr0.push(arr3);
-    //  console.log(arr0);
+    //main_array.push(arr3);
+    //  console.log(main_array);
 
 
     $("#category3").droppable({
@@ -301,7 +342,7 @@ $(".flip6").droppable({
                 alert('Can Drag One Post Only Once In One Category');
             } else {
                 tag = ui.draggable;
-                var a = tag.clone().attr("itemid", "copy-" + tag.attr("itemid")).appendTo("#category3").draggable({
+                var a = tag.clone().attr("itemid", tag.attr("itemid")).appendTo("#category3").draggable({
                     cursor: 'move',
                     helper: "clone",
                     revert: 'invalid'
@@ -312,16 +353,19 @@ $(".flip6").droppable({
                 $(ui.draggable).addClass("green");
                 $(a).attr('id', itemid);
 
-                var type = 'category3';
-                arr6.push(itemid);
-                arr5[type] = arr6;
+                // var type = 'category3';
+                // arr6.push(itemid);
+                // arr5[type] = arr6;
                 //console.log(arr5);
+
+                arr6.push(itemid);
+                main_array['category3']=arr6;
             }
         }
         //   });
         // }
     });
-    arr0.push(arr5);
+   // main_array.push(arr5);
 
     $("#category4").droppable({
         drop: function(event, ui) {
@@ -336,7 +380,7 @@ $(".flip6").droppable({
             } else {
                
                 tag = ui.draggable;
-                var a = tag.clone().attr("itemid", "copy-" + tag.attr("itemid")).appendTo("#category4").draggable({
+                var a = tag.clone().attr("itemid", tag.attr("itemid")).appendTo("#category4").draggable({
                     cursor: 'move',
                     helper: "clone",
                     revert: 'invalid'
@@ -347,15 +391,18 @@ $(".flip6").droppable({
                 $(ui.draggable).addClass("green");
                 $(a).attr('id', itemid);
                
-                var type = 'category4';
+                // var type = 'category4';
+                // arr8.push(itemid);
+                // arr7[type] = arr8;
+
                 arr8.push(itemid);
-                arr7[type] = arr8;
+                main_array['category4']=arr8;
             }
         }
         //   });
         // }
     });
-    arr0.push(arr7);
+    //main_array.push(arr7);
 
     $("#category5").droppable({
         drop: function(event, ui) {
@@ -366,7 +413,7 @@ $(".flip6").droppable({
                 alert('Can Drag One Post Only Once In One Category');
             } else {
                 tag = ui.draggable;
-                var a = tag.clone().attr("itemid", "copy-" + tag.attr("itemid")).appendTo("#category5").draggable({
+                var a = tag.clone().attr("itemid", tag.attr("itemid")).appendTo("#category5").draggable({
                     cursor: 'move',
                     helper: "clone",
                     revert: 'invalid'
@@ -377,13 +424,16 @@ $(".flip6").droppable({
                 $(ui.draggable).addClass("green");
                 $(a).attr('id', itemid);
 
-                var type = 'category5';
+                // var type = 'category5';
+                // arr10.push(itemid);
+                // arr9[type] = arr10;
+
                 arr10.push(itemid);
-                arr9[type] = arr10;
+                main_array['category5']=arr10;
             }
         }
     });
-    arr0.push(arr9);
+//    main_array.push(arr9);
 
     $("#category6").droppable({
         drop: function(event, ui) {
@@ -393,7 +443,7 @@ $(".flip6").droppable({
                 alert('Can Drag One Post Only Once In One Category');
             } else {
                 tag = ui.draggable;
-                var a = tag.clone().attr("itemid", "copy-" + tag.attr("itemid")).appendTo("#category6").draggable({
+                var a = tag.clone().attr("itemid", tag.attr("itemid")).appendTo("#category6").draggable({
                     cursor: 'move',
                     helper: "clone",
                     revert: 'invalid'
@@ -404,14 +454,17 @@ $(".flip6").droppable({
                 $(ui.draggable).addClass("green");
                 $(a).attr('id', itemid);
 
-                var type = 'category6';
+                // var type = 'category6';
+                // arr12.push(itemid);
+                // arr11[type] = arr12;
+
                 arr12.push(itemid);
-                arr11[type] = arr12;
+                main_array['category6']=arr12;
             }
         }
     });
-    arr0.push(arr11);
-    console.log(arr0);
-    //console.log(arr0.toString());
+    //main_array.push(arr11);
+    console.log(main_array);
+    //console.log(main_array.toString());
 
 });
