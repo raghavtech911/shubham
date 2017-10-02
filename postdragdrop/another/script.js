@@ -207,6 +207,7 @@ var counter = 0;
                             helper: "clone", revert: 'invalid' });
                     counter+=1;
             $(a).addClass("newaddedclass");
+                $(a).removeClass("green");
             $(ui.draggable).addClass("green");
             $(a).attr('id',itemid);
             //         var employee = {
@@ -249,6 +250,7 @@ var counter = 0;
                             helper: "clone", revert: 'invalid' });
                     counter+=1;
                     $(a).addClass("newaddedclass");
+                        $(a).removeClass("green");
                     $(ui.draggable).addClass("green");
                         $(a).attr('id',itemid);
             //         var employee = {
@@ -281,6 +283,7 @@ var counter = 0;
                             helper: "clone", revert: 'invalid' });
                     counter+=1;
                     $(a).addClass("newaddedclass");
+                        $(a).removeClass("green");
                      $(ui.draggable).addClass("green");
                          $(a).attr('id',itemid);
 
@@ -306,6 +309,7 @@ var counter = 0;
                 helper: "clone", revert: 'invalid' });
         counter+=1;
         $(a).addClass("newaddedclass");
+            $(a).removeClass("green");
         $(ui.draggable).addClass("green");
             $(a).attr('id',itemid);
 
