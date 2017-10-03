@@ -22,3 +22,13 @@
 .red{
 	background-color:lightgreen;
 }
+
+ /*div.ui-selectee {border: 4px solid #aaa; background-color:#44c765}
+      div.ui-selecting {border:4px dotted #000; background-color:yellow;}*/
+
+
+.draggable-helper {
+    width:120px;
+    display:inline-block;
+    list-style-type:none;
+}

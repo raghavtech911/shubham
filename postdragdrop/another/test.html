@@ -17,88 +17,104 @@
   </head>
 
   <body>
-    <div class="container">
+    <div class="container-fluid">
       <div class="row">
       <div class="col-md-12">
         <div class="col-md-3">
           <div class="panel panel-default">
             <div class="panel-heading">
-              <h1 class="panel-title">Post Lists</h1>
+              <h1 class="panel-title">Posts<span><input style="float:right" type="text" name="search" autocomplete="off" placeholder="Search Here" class="text-input" id="filter"></span></h1><!-- <span id="filter-count"></span> -->
             </div>
             <div id="container1" class="panel-body box-container">
-              <div id="itm-1" itemid="itm-1" class="btn btn-default box-item">Post 1</div>
-              <div id="itm-2" itemid="itm-2" class="btn btn-default box-item">Post 2</div>
-              <div id="itm-3" itemid="itm-3" class="btn btn-default box-item">Post 3</div>
-              <div id="itm-4" itemid="itm-4" class="btn btn-default box-item">Post 4</div>
-              <div id="itm-5" itemid="itm-5" class="btn btn-default box-item">Post 5</div>
-              <div id="itm-6" itemid="itm-6" class="btn btn-default box-item">Post 6</div>
-              <div id="itm-7" itemid="itm-7" class="btn btn-default box-item">Post 7</div>
-              <div id="itm-8" itemid="itm-8" class="btn btn-default box-item">Post 8</div>
-              <div id="itm-9" itemid="itm-9" class="btn btn-default box-item">Post 9</div>
-              <div id="itm-10" itemid="itm-10" class="btn btn-default box-item">Post 10</div>
-              <div id="itm-11" itemid="itm-11" class="btn btn-default box-item">Post 11</div>
-              <div id="itm-12" itemid="itm-12" class="btn btn-default box-item">Post 12</div>
-              <div id="itm-13" itemid="itm-13" class="btn btn-default box-item">Post 13</div>
-              <div id="itm-14" itemid="itm-14" class="btn btn-default box-item">Post 14</div>
-              <div id="itm-15" itemid="itm-15" class="btn btn-default box-item">Post 15</div>
-              <div id="itm-16" itemid="itm-16" class="btn btn-default box-item">Post 16</div>
-              <div id="itm-17" itemid="itm-17" class="btn btn-default box-item">Post 17</div>
-              <div id="itm-18" itemid="itm-18" class="btn btn-default box-item">Post 18</div>
-              <div id="itm-19" itemid="itm-19" class="btn btn-default box-item">Post 19</div>
-              <div id="itm-20" itemid="itm-20" class="btn btn-default box-item">Post 20</div>
+             <div id="sapdleleitem"></div>
+
+             <div id="itm-1" itemid="itm-1" class="btn box-item"><input class="check" type="checkbox" onclick="$('#container1 #itm-1').addClass('active')" name="check" value="itm-1"><span> Nexus 7</span></div>
+           	 
+           	 <div id="itm-2" itemid="itm-2" class="btn box-item"><input class="check" type="checkbox" name="check" onclick="$('#container1 #itm-2').addClass('active')" value="itm-2"><span> Iphone X</span></div>
+           	 
+           	 <div id="itm-3" itemid="itm-3" class="btn box-item"><input class="check" type="checkbox" name="check" onclick="$('#container1 #itm-3').addClass('active')" value="itm-3"><span> galaxy duos</span></div>
+             
+              <div id="itm-4" itemid="itm-4" class="btn box-item"><input class="check" type="checkbox" name="check" onclick="$('#container1 #itm-4').addClass('active')" value="itm-4"><span>redmi mi note 4</span></div>
+             
+              <div id="itm-5" itemid="itm-5" class="btn box-item"><input class="check" type="checkbox" name="check" onclick="$('#container1 #itm-5 ').addClass('active')" value="itm-5"><span>ipad</span></div>
+             
+              <div id="itm-6" itemid="itm-6" class="btn box-item"><input class="check" type="checkbox" name="check" onclick="$('#container1 #itm-6').addClass('active')" value="itm-6"><span>oppo v4</span></div>
+             
+              <div id="itm-7" itemid="itm-7" class="btn box-item"><input class="check" type="checkbox" name="check" onclick="$('#container1 #itm-7').addClass('active')" value="itm-7"><span>vivo selfie</span></div>
+             
+              <div id="itm-8" itemid="itm-8" class="btn box-item"><input class="check" type="checkbox" name="check" onclick="$('#container1 #itm-8').addClass('active')" value="itm-8"><span>lenovo yoga</span></div>
+             
+              <div id="itm-9" itemid="itm-9" class="btn box-item"><input class="check" type="checkbox" name="check" onclick="$('#container1 #itm-9').addClass('active')" value="itm-9"><span>acer a5</span></div>
+              
+              <div id="itm-10" itemid="itm-10" class="btn box-item"><input class="check" type="checkbox" name="check" onclick="$('#container1 #itm-10').addClass('active')" value="itm-10"><span>samsung dabba</span></div>
+             
+              <div id="itm-11" itemid="itm-11" class="btn box-item"><input class="check" type="checkbox" name="check" onclick="$('#container1 #itm-11').addClass('active')" value="itm-11"><span>nokia 76</span></div>
+             
+              <div id="itm-12" itemid="itm-12" class="btn box-item"><input class="check" type="checkbox" name="check" onclick="$('#container1 #itm-12').addClass('active')" value="itm-12"><span>nokia 89</span></div>
+              
+              <div id="itm-13" itemid="itm-13" class="btn box-item"><input class="check" type="checkbox" name="check" onclick="$('#container1 #itm-13').addClass('active')" value="itm-13"><span>oneplus two</span></div>
+             
+              <div id="itm-14" itemid="itm-14" class="btn box-item"><input class="check" type="checkbox" name="check" onclick="$('#container1 #itm-14').addClass('active')" value="itm-14"><span>blackberry</span></div>
+              
             </div>
           </div>
         </div>
+        <div>
+        	<input class="text-input2" id="filter2" style="float:right; margin-top: 15px; margin-right: 41px;" type="text" autocomplete="off" name="search" placeholder="Search Here"><span id="filter-count"></span>
+        </div>
+        <div id="divsecond">
         <div class="col-md-9" style="margin-top: 41px;">
-        <div class="col-md-12">
+        <div class="row">
+        <div class="col-md-4">
           <div class="panel panel-default">
             <div class="flip1 panel-heading">
-              <h1 class="panel-title">Category 1<span style="float:right;"><img src="down.png" height="12px" width="12px"></span></h1>
+              <h1 class="panel-title"><strong>Samsung</strong><span style="float:right;"><img src="down.png" height="12px" width="12px"></span></h1>
             </div>
             <div class="panel1" id="category1" class="panel-body box-container"></div>
           </div>
         </div>
 
-        <div class="col-xs-12">
+        <div class="col-xs-4">
           <div class="panel panel-default">
             <div class="flip2 panel-heading">
-              <h1 class="panel-title">Category 2<span style="float:right;"><img src="down.png" height="12px" width="12px"></span></h1>
+              <h1 class="panel-title"><strong>Apple</strong><span style="float:right;"><img src="down.png" height="12px" width="12px"></span></h1>
             </div>
             <div class="panel2" id="category2" class="panel-body box-container"></div>
           </div>
         </div>
         
-        <div class="col-xs-12">
+        <div class="col-xs-4">
           <div class="panel panel-default">
             <div class="flip3 panel-heading">
-              <h1 class="panel-title">Category 3<span style="float:right;"><img id="imgdown" src="down.png" height="12px" width="12px"/></span></h1>
+              <h1 class="panel-title"><strong>Oppo</strong><span style="float:right;"><img id="imgdown" src="down.png" height="12px" width="12px"/></span></h1>
             </div>
             <div class="panel3" id="category3" class="panel-body box-container"></div>
           </div>
         </div>
-        
-        <div class="col-xs-12">
+        </div>
+        <div class="row">
+        <div class="col-xs-4">
           <div class="panel panel-default">
             <div class="flip4 panel-heading">
-              <h1 class="panel-title">Category 4<span style="float:right;"><img src="down.png" height="12px" width="12px"></span></h1>
+              <h1 class="panel-title"><strong>Vivo</strong><span style="float:right;"><img src="down.png" height="12px" width="12px"></span></h1>
             </div>
             <div class="panel4" id="category4" class="panel-body box-container"></div>
           </div>
         </div>
         
-        <div class="col-xs-12">
+        <div class="col-xs-4">
           <div class="panel panel-default">
             <div class="flip5 panel-heading">
-              <h1 class="panel-title">Category 5<span style="float:right;"><img src="down.png" height="12px" width="12px"></span></h1>
+              <h1 class="panel-title"><strong>Blackberry</strong><span style="float:right;"><img src="down.png" height="12px" width="12px"></span></h1>
             </div>
             <div class="panel5" id="category5" class="panel-body box-container"></div>
           </div>
         </div>
 
-        <div class="col-xs-12">
+        <div class="col-xs-4">
           <div class="panel panel-default">
             <div class="flip6 panel-heading">
-              <h1 class="panel-title">Category 6<span style="float:right;"><img src="down.png" height="12px" width="12px"></span></h1>
+              <h1 class="panel-title"><strong>Lenovo</strong><span style="float:right;"><img src="down.png" height="12px" width="12px"></span></h1>
             </div>
             <div class="panel6" id="category6" class="panel-body box-container"></div>
           </div>
@@ -106,7 +122,8 @@
       </div>
     </div>
     </div>
-
+    </div>
+    </div>
 
 
   </body>
