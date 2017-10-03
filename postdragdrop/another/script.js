@@ -255,33 +255,33 @@ $(function() {
     ////////////////////////////////////////
     $(".panel1").droppable({
         out: function() {
-            $('.panel1').slideUp(1300);
+            //$('.panel1').slideUp(2000);
         }
     });
 
     $(".panel2").droppable({
         out: function() {
-            $('.panel2').slideUp(1500);
+           // $('.panel2').slideUp(2000);
         }
     });
     $(".panel3").droppable({
         out: function() {
-            $('.panel3').slideUp(1500);
+           // $('.panel3').slideUp(2000);
         }
     });
     $(".panel4").droppable({
         out: function() {
-            $('.panel4').slideUp(1500);
+            //$('.panel4').slideUp(2000);
         }
     });
     $(".panel5").droppable({
         out: function() {
-            $('.panel5').slideUp(1500);
+           // $('.panel5').slideUp(2000);
         }
     });
     $(".panel6").droppable({
         out: function() {
-            $('.panel6').slideUp(1500);
+           // $('.panel6').slideUp(2000);
         }
     });
     /////////////////////////////////////////////////////////////////
@@ -326,10 +326,10 @@ $(function() {
         }
     });
 
-
     ////////////////////////////////////
 
     $("#container1").droppable({
+        //accept: "#category1",
         drop: function(event, ui) {
             var itemid = $(event.originalEvent.toElement).attr("itemid");
             // alert(itemid);
@@ -461,6 +461,7 @@ $(function() {
 
 
     $("#category1").droppable({
+       // accept: '#divsecond:not(#category1)',
         drop: function(event, ui) {
             console.log('dropped');
             var $this = $(this);
@@ -468,7 +469,9 @@ $(function() {
             var itemid1 = $(ui.draggable).attr("itemid");
 
             if ($(ui.draggable).attr("itemid") === $("#category1 > #" + itemid1).attr("id")) {
+                // ('#container1 .check').prop('checked', false);
                 alert('Can Drag One Post Only Once In One Category');
+
             } else {
                 // alert('in else');
 
@@ -502,8 +505,10 @@ $(function() {
                 ///// for multiple post dragging
                 if (ui.draggable.hasClass('active')) {
                     console.log('active');
-                    $('.active').each(function() {
+                    //ui.draggable.removeClass('active');
+                    $('#container1 > .active').each(function() {
                         console.log($(this).attr('id'));
+                        var multiid = $(this).attr('id');
                         tag = ui.draggable;
                         var ab = $(this).clone().attr("id", $(this).attr("id")).appendTo("#category1").draggable({
                         cursor: 'move',
@@ -511,7 +516,7 @@ $(function() {
                         revert: 'invalid',
                         start: function(e, ui) {
                             ui.helper.animate({
-                                width: 60,
+                                width: 70,
                                 height: 35
                             });
                         },
@@ -531,10 +536,14 @@ $(function() {
                         $('.check').prop('checked', false);
 
                         $(ab).attr('id', itemid);
+                        arr2.push(multiid);
+                        alert(arr2);    
+                        
                     });
                 }
 
-                arr2.push(itemid);
+                // arr2.push(itemid);
+                    
                 main_array['category1'] = arr2;
             }
         }
@@ -586,7 +595,7 @@ $(function() {
                 ///// for multiple post dragging
                 if (ui.draggable.hasClass('active')) {
                     //console.log('active');
-                    $('.active').each(function() {
+                    $('#container1 > .active').each(function() {
                         console.log($(this).attr('id'));
                         tag = ui.draggable;
                         var ab = $(this).clone().attr("id", $(this).attr("id")).appendTo("#category2").draggable({
@@ -666,7 +675,7 @@ $(function() {
                 ///// for multiple post dragging
                 if (ui.draggable.hasClass('active')) {
                     //console.log('active');
-                    $('.active').each(function() {
+                    $('#container1 > .active').each(function() {
                         console.log($(this).attr('id'));
                         tag = ui.draggable;
                         var a = $(this).clone().attr("id", $(this).attr("id")).appendTo("#category3").draggable({
@@ -746,7 +755,7 @@ $(function() {
                 ///// for multiple post dragging
                 if (ui.draggable.hasClass('active')) {
                     //console.log('active');
-                    $('.active').each(function() {
+                    $('#container1 > .active').each(function() {
                         console.log($(this).attr('id'));
                         tag = ui.draggable;
                         var a = $(this).clone().attr("id", $(this).attr("id")).appendTo("#category4").draggable({
@@ -824,7 +833,7 @@ $(function() {
                 ///// for multiple post dragging
                 if (ui.draggable.hasClass('active')) {
                     //console.log('active');
-                    $('.active').each(function() {
+                    $('#container1 > .active').each(function() {
                         console.log($(this).attr('id'));
                         tag = ui.draggable;
                         var a = $(this).clone().attr("id", $(this).attr("id")).appendTo("#category5").draggable({
@@ -899,7 +908,7 @@ $(function() {
                 ///// for multiple post dragging
                 if (ui.draggable.hasClass('active')) {
                     //console.log('active');
-                    $('.active').each(function() {
+                    $('#container1 > .active').each(function() {
                         console.log($(this).attr('id'));
                         tag = ui.draggable;
                         var a = $(this).clone().attr("id", $(this).attr("id")).appendTo("#category6").draggable({

@@ -1,340 +1,966 @@
-/* VARIABLES YOU COULD MODIFY */
-	var boxSizeArray = [5,5,5,5,5];	// Array indicating how many items there is rooom for in the right column ULs
+$(function() {
 
+    $('.mulselect').draggable();
 
-	var verticalSpaceBetweenListItems = 5;	// Pixels space between one <li> and next
-											// Same value or higher as margin bottom in CSS for #dhtmlgoodies_dragDropContainer ul li,#dragContent li
+    //////////////////////////// for Post Searching
+    $("#filter").keyup(function() {
 
+        // Retrieve the input field text and reset the count to zero
+        var filter = $(this).val(),
+            count = 0;
 
-	var indicateDestionationByUseOfArrow = false;	// Display arrow to indicate where object will be dropped(false = use rectangle)
+        // Loop through the comment list
+        $("#container1 div span").each(function() {
 
-	var cloneSourceItems = true;	// Items picked from main container will be cloned(i.e. "copy" instead of "cut").
-	var cloneAllowDuplicates = false;	// Allow multiple instances of an item inside a small box(example: drag Student 1 to team A twice
+            // If the list item does not contain the text phrase fade it out
+            if ($(this).text().search(new RegExp(filter, "i")) < 0) {
+                //$(this).fadeOut();
 
-	/* END VARIABLES YOU COULD MODIFY */
+                // Show the list item if the phrase matches and increase the count by 1
+            } else {
+                //$(this).show();
+                $(this).parent().prependTo("#sapdleleitem");
+               // $("#sapdleleitem").show();
+                count++;
+            }
+        });
 
-	var dragDropTopContainer = false;
-	var dragTimer = -1;
-	var dragContentObj = false;
-	var contentToBeDragged = false;	// Reference to dragged <li>
-	var contentToBeDragged_src = false;	// Reference to parent of <li> before drag started
-	var contentToBeDragged_next = false; 	// Reference to next sibling of <li> to be dragged
-	var destinationObj = false;	// Reference to <UL> or <LI> where element is dropped.
-	var dragDropIndicator = false;	// Reference to small arrow indicating where items will be dropped
-	var ulPositionArray = new Array();
-	var mouseoverObj = false;	// Reference to highlighted DIV
-
-	var MSIE = navigator.userAgent.indexOf('MSIE')>=0?true:false;
-	var navigatorVersion = navigator.appVersion.replace(/.*?MSIE (\d\.\d).*/g,'$1')/1;
-
-	var arrow_offsetX = -5;	// Offset X - position of small arrow
-	var arrow_offsetY = 0;	// Offset Y - position of small arrow
-
-	if(!MSIE || navigatorVersion > 6){
-		arrow_offsetX = -6;	// Firefox - offset X small arrow
-		arrow_offsetY = -13; // Firefox - offset Y small arrow
-	}
-
-	$(document).ready(function(){
-    $("#ss").mouseenter(function(){
-        $("#panel").slideDown("slow");
-    });
-    $("#ss").click(function(){
-        $("#panel").slideUp("slow");
-    });
+        // Update the count
+        var numberItems = count;
+        //  $("#filter-count").text("Number of Comments = "+count);
     });
 
+    //////////////////////// for Category Searching
+    $("#filter2").keyup(function() {
 
-	var indicateDestinationBox = false;
-	function getTopPos(inputObj)
-	{
-	  var returnValue = inputObj.offsetTop;
-	  while((inputObj = inputObj.offsetParent) != null){
-	  	if(inputObj.tagName!='HTML')returnValue += inputObj.offsetTop;
-	  }
-	  return returnValue;
-	}
+        // Retrieve the input field text and reset the count to zero
+        var filter = $(this).val(),
+            count = 0;
 
-	function getLeftPos(inputObj)
-	{
-	  var returnValue = inputObj.offsetLeft;
-	  while((inputObj = inputObj.offsetParent) != null){
-	  	if(inputObj.tagName!='HTML')returnValue += inputObj.offsetLeft;
-	  }
-	  return returnValue;
-	}
+        // Loop through the comment list
+        $("#divsecond h1 strong").each(function() {
 
-	function cancelEvent()
-	{
-		return false;
-	}
-	function initDrag(e)	// Mouse button is pressed down on a LI
-	{
-		if(document.all)e = event;
-		var st = Math.max(document.body.scrollTop,document.documentElement.scrollTop);
-		var sl = Math.max(document.body.scrollLeft,document.documentElement.scrollLeft);
+            // If the list item does not contain the text phrase fade it out
+            if ($(this).text().search(new RegExp(filter, "i")) < 0) {
+                //$(this).fadeOut();
+                $(this).closest("div").parent().fadeOut();
+                //$(this).parent().fadeOut();
 
-		dragTimer = 0;
-		dragContentObj.style.left = e.clientX + sl + 'px';
-		dragContentObj.style.top = e.clientY + st + 'px';
-		contentToBeDragged = this;
-		contentToBeDragged_src = this.parentNode;
-		contentToBeDragged_next = false;
-		if(this.nextSibling){
-			contentToBeDragged_next = this.nextSibling;
-			if(!this.tagName && contentToBeDragged_next.nextSibling)contentToBeDragged_next = contentToBeDragged_next.nextSibling;
-		}
-		timerDrag();
-		return false;
-	}
-
-	function timerDrag()
-	{
-		if(dragTimer>=0 && dragTimer<10){
-			dragTimer++;
-			setTimeout('timerDrag()',10);
-			return;
-		}
-		if(dragTimer==10){
-
-			if(cloneSourceItems && contentToBeDragged.parentNode.id=='allItems'){
-				newItem = contentToBeDragged.cloneNode(true);
-				newItem.onmousedown = contentToBeDragged.onmousedown;
-				contentToBeDragged = newItem;
-			}
-			dragContentObj.style.display='block';
-			dragContentObj.appendChild(contentToBeDragged);
-		}
-	}
-
-	function moveDragContent(e)
-	{
-		if(dragTimer<10){
-			if(contentToBeDragged){
-				if(contentToBeDragged_next){
-					contentToBeDragged_src.insertBefore(contentToBeDragged,contentToBeDragged_next);
-				}else{
-					contentToBeDragged_src.appendChild(contentToBeDragged);
-				}
-			}
-			return;
-		}
-		if(document.all)e = event;
-		var st = Math.max(document.body.scrollTop,document.documentElement.scrollTop);
-		var sl = Math.max(document.body.scrollLeft,document.documentElement.scrollLeft);
+                // Show the list item if the phrase matches and increase the count by 1
+            } else {
+                //$(this).show();
+                $(this).closest("div").parent().show();
+                //$(this).parent().closest("div").prependTo("#sapdlelicategory");
+                //$(this).parent().parent().show();
+                count++;
+            }
+        });
+        // Update the count
+        var numberItems = count;
+        $("#filter-count").text("Number of Categories = " + count);
+    });
 
 
-		dragContentObj.style.left = e.clientX + sl + 'px';
-		dragContentObj.style.top = e.clientY + st + 'px';
+    // function to hide color of other categories if one category is open
+    function test(panel, cat, arr) {
+        if ($("." + panel).is(":hidden")) {
+            if ($("#container1 > .green").attr("itemid") == $("#" + cat + "> .newaddedclass").attr("id")) {
+                $("#container1 > .green").removeClass("green");
+            }
+        }
+        //if category is visible show the elements of Post in green color
+        if ($("." + panel).is(":visible")) {
+            jQuery.each(arr, function(val) {
+                $("#container1 > #" + arr[val]).addClass("green");
+            });
+        }
+    }
+    ////////////////////////////////////////////////////////////////////////////
 
-		if(mouseoverObj)mouseoverObj.className='';
-		destinationObj = false;
-		dragDropIndicator.style.display='none';
-		if(indicateDestinationBox)indicateDestinationBox.style.display='none';
-		var x = e.clientX + sl;
-		var y = e.clientY + st;
-		var width = dragContentObj.offsetWidth;
-		var height = dragContentObj.offsetHeight;
+    $('.flip1').click(function() {
 
-		var tmpOffsetX = arrow_offsetX;
-		var tmpOffsetY = arrow_offsetY;
-
-		for(var no=0;no<ulPositionArray.length;no++){
-			var ul_leftPos = ulPositionArray[no]['left'];
-			var ul_topPos = ulPositionArray[no]['top'];
-			var ul_height = ulPositionArray[no]['height'];
-			var ul_width = ulPositionArray[no]['width'];
-
-			if((x+width) > ul_leftPos && x<(ul_leftPos + ul_width) && (y+height)> ul_topPos && y<(ul_topPos + ul_height)){
-				var noExisting = ulPositionArray[no]['obj'].getElementsByTagName('LI').length;
-				if(indicateDestinationBox && indicateDestinationBox.parentNode==ulPositionArray[no]['obj'])noExisting--;
-				if(noExisting<boxSizeArray[no-1] || no==0){
-					dragDropIndicator.style.left = ul_leftPos + tmpOffsetX + 'px';
-					var subLi = ulPositionArray[no]['obj'].getElementsByTagName('LI');
-
-					var clonedItemAllreadyAdded = false;
-					if(cloneSourceItems && !cloneAllowDuplicates){
-						for(var liIndex=0;liIndex<subLi.length;liIndex++){
-							if(contentToBeDragged.id == subLi[liIndex].id)clonedItemAllreadyAdded = true;
-						}
-						if(clonedItemAllreadyAdded)continue;
-					}
-
-					for(var liIndex=0;liIndex<subLi.length;liIndex++){
-						var tmpTop = getTopPos(subLi[liIndex]);
-						if(!indicateDestionationByUseOfArrow){
-							if(y<tmpTop){
-								destinationObj = subLi[liIndex];
-								indicateDestinationBox.style.display='block';
-								subLi[liIndex].parentNode.insertBefore(indicateDestinationBox,subLi[liIndex]);
-								break;
-							}
-						}else{
-							if(y<tmpTop){
-								destinationObj = subLi[liIndex];
-								dragDropIndicator.style.top = tmpTop + tmpOffsetY - Math.round(dragDropIndicator.clientHeight/2) + 'px';
-								dragDropIndicator.style.display='block';
-								break;
-							}
-						}
-					}
-
-					if(!indicateDestionationByUseOfArrow){
-						if(indicateDestinationBox.style.display=='none'){
-							indicateDestinationBox.style.display='block';
-							ulPositionArray[no]['obj'].appendChild(indicateDestinationBox);
-						}
-
-					}else{
-						if(subLi.length>0 && dragDropIndicator.style.display=='none'){
-							dragDropIndicator.style.top = getTopPos(subLi[subLi.length-1]) + subLi[subLi.length-1].offsetHeight + tmpOffsetY + 'px';
-							dragDropIndicator.style.display='block';
-						}
-						if(subLi.length==0){
-							dragDropIndicator.style.top = ul_topPos + arrow_offsetY + 'px'
-							dragDropIndicator.style.display='block';
-						}
-					}
-
-					if(!destinationObj)destinationObj = ulPositionArray[no]['obj'];
-					mouseoverObj = ulPositionArray[no]['obj'].parentNode;
-					mouseoverObj.className='mouseover';
-					return;
-				}
-			}
-		}
-	}
-
-	/* End dragging
-	Put <LI> into a destination or back to where it came from.
-	*/
-	function dragDropEnd(e)
-	{
-		if(dragTimer==-1)return;
-		if(dragTimer<10){
-			dragTimer = -1;
-			return;
-		}
-		dragTimer = -1;
-		if(document.all)e = event;
+        //to make other elements hide
+        $('.panel2').slideUp("fast", function() {
+            test('panel2', 'category2', arr4);
+        });
+        $('.panel3').slideUp("fast", function() {
+            test('panel3', 'category3', arr6);
+        });
+        $('.panel4').slideUp("fast", function() {
+            test('panel4', 'category4', arr8);
+        });
+        $('.panel5').slideUp("fast", function() {
+            test('panel5', 'category5', arr10);
+        });
+        $('.panel6').slideUp("fast", function() {
+            test('panel6', 'category6', arr12);
+        });
 
 
-		if(cloneSourceItems && (!destinationObj || (destinationObj && (destinationObj.id=='allItems' || destinationObj.parentNode.id=='allItems')))){
-			contentToBeDragged.parentNode.removeChild(contentToBeDragged);
-		}else{
+        $('.panel1').slideToggle('slow', function() {
+            test('panel1', 'category1', arr2);
+        });
+    });
 
-			if(destinationObj){
-				if(destinationObj.tagName=='UL'){
-					destinationObj.appendChild(contentToBeDragged);
-				}else{
-					destinationObj.parentNode.insertBefore(contentToBeDragged,destinationObj);
-				}
-				mouseoverObj.className='';
-				destinationObj = false;
-				dragDropIndicator.style.display='none';
-				if(indicateDestinationBox){
-					indicateDestinationBox.style.display='none';
-					document.body.appendChild(indicateDestinationBox);
-				}
-				contentToBeDragged = false;
-				return;
-			}
-			if(contentToBeDragged_next){
-				contentToBeDragged_src.insertBefore(contentToBeDragged,contentToBeDragged_next);
-			}else{
-				contentToBeDragged_src.appendChild(contentToBeDragged);
-			}
-		}
-		contentToBeDragged = false;
-		dragDropIndicator.style.display='none';
-		if(indicateDestinationBox){
-			indicateDestinationBox.style.display='none';
-			document.body.appendChild(indicateDestinationBox);
+    ///////////////////////////////////////////////////////
 
-		}
-		mouseoverObj = false;
+    $('.flip2').click(function() {
+        $('.panel1').slideUp("fast", function() {
+            test('panel1', 'category1', arr2);
+        });
+        $('.panel3').slideUp("fast", function() {
+            test('panel3', 'category3', arr6);
+        });
+        $('.panel4').slideUp("fast", function() {
+            test('panel4', 'category4', arr8);
+        });
+        $('.panel5').slideUp("fast", function() {
+            test('panel5', 'category5', arr10);
+        });
+        $('.panel6').slideUp("fast", function() {
+            test('panel6', 'category6', arr12);
+        });
 
-	}
+        $('.panel2').slideToggle('slow', function() {
+            test('panel2', 'category2', arr4);
+        });
+    });
+    //////////////////////////////////////////////////////////
 
-	/*
-	Preparing data to be saved
-	*/
-	function saveDragDropNodes()
-	{
-		var saveString = "";
-		var uls = dragDropTopContainer.getElementsByTagName('UL');
-		for(var no=0;no<uls.length;no++){	// LOoping through all <ul>
-			var lis = uls[no].getElementsByTagName('LI');
-			for(var no2=0; no2<lis.length; no2++){
-				if(saveString.length>0)saveString = saveString + ";";
-				saveString = saveString + uls[no].id + ':' + lis[no2].id;
-			}
-		}
+    $('.flip3').click(function() {
+        $('.panel1').slideUp("fast", function() {
+            test('panel1', 'category1', arr2);
+        });
+        $('.panel2').slideUp("fast", function() {
+            test('panel2', 'category2', arr4);
+        });
+        $('.panel4').slideUp("fast", function() {
+            test('panel4', 'category4', arr8);
+        });
+        $('.panel5').slideUp("fast", function() {
+            test('panel5', 'category5', arr10);
+        });
+        $('.panel6').slideUp("fast", function() {
+            test('panel6', 'category6', arr12);
+        });
+        $('.panel3').slideToggle('slow', function() {
+            test('panel3', 'category3', arr6);
+        });
+    });
+    /////////////////////////////////////////////////////
+    $('.flip4').click(function() {
+        $('.panel1').slideUp("fast", function() {
+            test('panel1', 'category1', arr2);
+        });
+        $('.panel2').slideUp("fast", function() {
+            test('panel2', 'category2', arr4);
+        });
+        $('.panel3').slideUp("fast", function() {
+            test('panel3', 'category3', arr6);
+        });
+        $('.panel5').slideUp("fast", function() {
+            test('panel5', 'category5', arr10);
+        });
+        $('.panel6').slideUp("fast", function() {
+            test('panel6', 'category6', arr12);
+        });
+        $('.panel4').slideToggle('slow', function() {
+            test('panel4', 'category4', arr8);
+        });
+    });
+    ////////////////////////////////////////////////////////////    
 
-		document.getElementById('saveContent').innerHTML = '<h1>Array:</h1> ' + saveString.replace(/;/g,';<br>') ;
-		document.forms['myForm'].listOfItems.value = saveString;
-	}
+    $('.flip5').click(function() {
+        $('.panel1').slideUp("fast", function() {
+            test('panel1', 'category1', arr2);
+        });
+        $('.panel2').slideUp("fast", function() {
+            test('panel2', 'category2', arr4);
+        });
+        $('.panel3').slideUp("fast", function() {
+            test('panel3', 'category3', arr6);
+        });
+        $('.panel4').slideUp("fast", function() {
+            test('panel4', 'category4', arr8);
+        });
+        $('.panel6').slideUp("fast", function() {
+            test('panel6', 'category6', arr12);
+        });
+        $('.panel5').slideToggle('slow', function() {
+            test('panel5', 'category5', arr10);
+        });
+    });
+    ////////////////////////////////////////////////////////
+    $('.flip6').click(function() {
+        $('.panel1').slideUp("fast", function() {
+            test('panel1', 'category1', arr2);
+        });
+        $('.panel2').slideUp("fast", function() {
+            test('panel2', 'category2', arr4);
+        });
+        $('.panel3').slideUp("fast", function() {
+            test('panel3', 'category3', arr6);
+        });
+        $('.panel4').slideUp("fast", function() {
+            test('panel4', 'category4', arr8);
+        });
+        $('.panel5').slideUp("fast", function() {
+            test('panel5', 'category5', arr10);
+        });
+        $('.panel6').slideToggle('slow', function() {
+            test('panel6', 'category6', arr12);
+        });
+    });
+    ///////////////////////////////////////////////////////////////////////////////////
+
+    //on hover dropable item slide down ...
+
+    $(".flip1").droppable({
+        over: function() {
+            $('.panel1').slideDown("slow");
+        }
+    });
+
+    $(".flip2").droppable({
+        over: function() {
+            $('.panel2').slideDown("slow");
+        }
+    });
+
+    $(".flip3").droppable({
+        over: function() {
+            $('.panel3').slideDown("slow");
+        }
+    });
+
+    $(".flip4").droppable({
+        over: function() {
+            $('.panel4').slideDown("slow");
+        }
+    });
+
+
+    $(".flip5").droppable({
+        over: function() {
+            $('.panel5').slideDown("slow");
+        }
+    });
+
+    $(".flip6").droppable({
+        over: function() {
+            $('.panel6').slideDown("slow");
+        }
+    });
+
+    ////////////////////////////////////////
+    $(".panel1").droppable({
+        out: function() {
+            //$('.panel1').slideUp(2000);
+        }
+    });
+
+    $(".panel2").droppable({
+        out: function() {
+           // $('.panel2').slideUp(2000);
+        }
+    });
+    $(".panel3").droppable({
+        out: function() {
+           // $('.panel3').slideUp(2000);
+        }
+    });
+    $(".panel4").droppable({
+        out: function() {
+            //$('.panel4').slideUp(2000);
+        }
+    });
+    $(".panel5").droppable({
+        out: function() {
+           // $('.panel5').slideUp(2000);
+        }
+    });
+    $(".panel6").droppable({
+        out: function() {
+           // $('.panel6').slideUp(2000);
+        }
+    });
+    /////////////////////////////////////////////////////////////////
+
+    var main_array = []; //big array
+    var arr2 = [];
+    var arr4 = [];
+    var arr6 = [];
+    var arr8 = [];
+    var arr10 = [];
+    var arr12 = [];
+    var counter = 0;
+
+    $('.box-item').draggable({
+        cursor: 'move',
+        helper: "clone",
+        revert: 'invalid',
+        start: function(e, ui) {
+            ui.helper.animate({
+                width: 60,
+                height: 35
+            });
+        },
+        cursorAt: {
+            left: 30,
+            top: 25
+        }
+    });
+
+    ///////////////// to drag multiple elements
+    //$("#container1 > div").draggable({
+    $(".box-item").draggable({
+        revert: 'invalid',
+        helper: function(event) {
+            var helperList = $('<ul class="draggable-helper">');
+            if ($(this).is('.active')) {
+                helperList.append($(this).siblings('.active').andSelf().clone());
+            } else {
+                helperList.append($(this).clone());
+            }
+            return helperList;
+        }
+    });
+
+    ////////////////////////////////////
+
+    $("#container1").droppable({
+        //accept: "#category1",
+        drop: function(event, ui) {
+            var itemid = $(event.originalEvent.toElement).attr("itemid");
+            // alert(itemid);
+            if (ui.draggable.remove()) {
+                counter -= 1; // to count number
+            } // to remove the dragged item
+            var k = ui.draggable.attr("itemid");
+            if (counter > 0) {} else {
+                //if($(".box-item").attr("itemid")== k ){
+                $(".box-item").removeClass("green"); // to remove the green background
+            }
+
+            //remove the element form array 
+            var index1 = arr2.indexOf(itemid);
+            if (index1 > -1) {
+                arr2.splice(index1, 1);
+            }
+            //alert(arr2);
+            //arr1[category1] = arr2;
+            main_array[category1] = arr2;
+
+            var index2 = arr4.indexOf(itemid);
+            if (index2 > -1) {
+                arr4.splice(index2, 1);
+            }
+            main_array[category2] = arr4;
+
+            var index3 = arr6.indexOf(itemid);
+            if (index3 > -1) {
+                arr6.splice(index3, 1);
+            }
+            // alert(arr6);
+            main_array[category3] = arr6;
+
+            var index4 = arr8.indexOf(itemid);
+            if (index4 > -1) {
+                arr8.splice(index4, 1);
+            }
+            // alert(arr8);
+            main_array[category4] = arr8;
+
+            var index5 = arr10.indexOf(itemid);
+            if (index5 > -1) {
+                arr10.splice(index5, 1);
+            }
+            // alert(arr10);
+            main_array[category5] = arr10;
+
+            var index6 = arr12.indexOf(itemid);
+            if (index6 > -1) {
+                arr12.splice(index6, 1);
+            }
+            // alert(arr12);
+            main_array[category6] = arr12;
+
+            console.log(main_array);
+        }
+    });
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    // $("#category1").droppable({
+    //     drop: function(event, ui) {
+
+    //         var itemid = $(event.originalEvent.toElement).attr("itemid");
+    //         var itemid1 = $(ui.draggable).attr("itemid");            
+
+    //         if ($(ui.draggable).attr("itemid") === $("#category1 > #" + itemid1).attr("id")) {
+    //             alert('Can Drag One Post Only Once In One Category');
+    //         } else {
+    //             // alert('in else');
+    //             tag = ui.draggable;
+    //             var a = tag.clone().attr("itemid",tag.attr("itemid")).appendTo("#category1").draggable({
+    //                 cursor: 'move',
+    //                 helper: "clone",
+    //                 revert: 'invalid',
+    //                   start: function (e, ui) {
+    //                     ui.helper.animate({
+    //                     width: 60,
+    //                     height: 35
+    //                     });
+    //                 },
+    //                     cursorAt: {left:30, top:25}
+    //             });
+    //             counter += 1;
+
+    //             $(a).append("<img id='cross'style='float:right' src='cross.png' height='13px' width='13px'/>");
+    //             $(a).addClass("newaddedclass");
+    //             $(a).removeClass("green");
+    //             $(ui.draggable).addClass("green");
+
+    //             $(a).attr('id', itemid);
+
+    //             // var type = 'category1';
+    //             // arr2.push(itemid);
+    //             // arr1[type] = arr2;
+
+    //             arr2.push(itemid);
+    //             main_array['category1']=arr2;
+    //         }
+    //     }
+    // });
+    //main_array.push(arr1);
+    //  console.log(main_array);
 
 
 
 
-	function initDragDropScript()
-	{
-    
-		dragContentObj = document.getElementById('dragContent');
-		dragDropIndicator = document.getElementById('dragDropIndicator');
-		dragDropTopContainer = document.getElementById('dhtmlgoodies_dragDropContainer');
-		document.documentElement.onselectstart = cancelEvent;;
-		var listItems = dragDropTopContainer.getElementsByTagName('LI');	// Get array containing all <LI>
-		var itemHeight = false;
-		for(var no=0;no<listItems.length;no++){
-			listItems[no].onmousedown = initDrag;
-			listItems[no].onselectstart = cancelEvent;
-			if(!itemHeight)itemHeight = listItems[no].offsetHeight;
-			if(MSIE && navigatorVersion/1<6){
-				listItems[no].style.cursor='hand';
-			}
-		}
-
-    
-		 
-		var mainContainer = document.getElementById('dhtmlgoodies_mainContainer');
-		var uls = mainContainer.getElementsByTagName('UL');
-		itemHeight = itemHeight + verticalSpaceBetweenListItems;
-		for(var no=0;no<uls.length;no++){
-			uls[no].style.height = itemHeight * boxSizeArray[no]  + 'px';
-		}
+    //     $("#category1").droppable({
+    //     drop: function(event, ui) {
+    //         console.log('dropped');
+    //         var $this = $(this);
+    //         var selectedObjects = new Array();
+    //         if (ui.draggable.hasClass('active')) {
+    //             console.log('active');
+    //             // get all active items
+    //             $('.active').each(function() {
+    //                 console.log($(this).attr('id'));
+    //                 selectedObjects.push($(this).attr('id'));
+    //                 $(this).remove();
+    //             });
+    //         } else {
+    //             console.log('not active');
+    //             //selectedObjects.push(ui.draggable.attr('id'));
+    //             ui.draggable.remove();
+    //         }
+    //         $this.append(', ' + selectedObjects.join(', '));
+    //     }
+    // });
 
 
+    $("#category1").droppable({
+       // accept: '#divsecond:not(#category1)',
+        drop: function(event, ui) {
+            //console.log('dropped');
+            var $this = $(this);
+            var itemid = $(event.originalEvent.toElement).attr("itemid");
+            var itemid1 = $(ui.draggable).attr("itemid");
 
-		var leftContainer = document.getElementById('dhtmlgoodies_listOfItems');
-		var itemBox = leftContainer.getElementsByTagName('UL')[0];
+            if ($(ui.draggable).attr("itemid") === $("#category1 > #" + itemid1).attr("id")) {
+                // ('#container1 .check').prop('checked', false);
+                alert('Can Drag One Post Only Once In One Category');
+
+            } else {
+                // alert('in else');
+
+                ///////for single post dragging
+                if (!ui.draggable.hasClass('active')) {
+                    tag = ui.draggable;
+                    var a = tag.clone().attr("itemid", tag.attr("itemid")).appendTo("#category1").draggable({
+                        cursor: 'move',
+                        helper: "clone",
+                        revert: 'invalid',
+                        start: function(e, ui) {
+                            ui.helper.animate({
+                                width: 60,
+                                height: 35
+                            });
+                        },
+                        cursorAt: {
+                            left: 30,
+                            top: 25
+                        }
+                    });
+                    counter += 1;
+                    $('#category1 input').remove();
+                    $(a).append("<img id='cross'style='float:right' src='cross.png' height='13px' width='13px'/>");
+                    $(a).addClass("newaddedclass");
+                    $(a).removeClass("green");
+                    $(ui.draggable).addClass("green");
+                    $(a).attr('id', itemid);
+                    arr2.push(itemid1);
+                }
+
+                ///// for multiple post dragging
+                if (ui.draggable.hasClass('active')) {
+                   // console.log('active');
+                    //ui.draggable.removeClass('active');
+                    $('#container1 > .active').each(function() {
+                        //console.log($(this).attr('id'));
+                        var mulid = $(this).attr('id');
+                        tag = ui.draggable;
+                        var ab = $(this).clone().attr("id", $(this).attr("id")).appendTo("#category1").draggable({
+                        cursor: 'move',
+                        helper: 'clone',
+                        revert: 'invalid',
+                        start: function(e, ui) {
+                            ui.helper.animate({
+                                width: 70,
+                                height: 35
+                            });
+                        },
+                        cursorAt: {
+                            left: 30,
+                            top: 25
+                        }
+                    });
+                        //$(this).remove();
+                        $(ab).append("<img id='cross'style='float:right' src='cross.png' height='13px' width='13px'/>");
+                        $(ab).addClass("newaddedclass");
+                        $(".active").addClass("green");
+                        $('#category1 input').remove();
+                        $("#container1 .active").removeClass("active");
+                        $(ab).removeClass("green");
+                        $(ab).removeClass("active");
+                        $('.check').prop('checked', false);
+
+                        $(ab).attr('id', itemid);
+                        arr2.push(mulid);
+                    });
+                }
+
+                // arr2.push(itemid);
+
+                main_array['category1'] = arr2;
+            }
+        }
+    });
 
 
+    $("#category2").droppable({
+        drop: function(event, ui) {
+            var itemid = $(event.originalEvent.toElement).attr("itemid");
+            var itemid1 = $(ui.draggable).attr("itemid");
+            if ($(ui.draggable).attr("itemid") === $("#category2 > #" + itemid1).attr("id")) {
+                alert('Can Drag One Post Only Once In One Category');
+            } else {
+                ///////for single post dragging
+                if (!ui.draggable.hasClass('active')) {
+                    tag = ui.draggable;
+                    // var a = tag.clone().attr("itemid", "copy-" + tag.attr("itemid")).appendTo("#category2").draggable({
+                    //     cursor: 'move',
+                    //     helper: "clone",
+                    //     revert: 'invalid'
+                    // });
+                    var a = tag.clone().attr("itemid", tag.attr("itemid")).appendTo("#category2").draggable({
+                        cursor: 'move',
+                        helper: "clone",
+                        revert: 'invalid',
+                        start: function(e, ui) {
+                            ui.helper.animate({
+                                width: 60,
+                                height: 35
+                            });
+                        },
+                        cursorAt: {
+                            left: 30,
+                            top: 25
+                        }
+                    });
+                    counter += 1;
+                    // $(a).addClass("newaddedclass");
+                    // $(a).removeClass("green");
+                    // $(ui.draggable).addClass("green");
+                    $('#category2 input').remove();
+                    $(a).append("<img id='cross'style='float:right' src='cross.png' height='13px' width='13px'/>");
+                    $(a).addClass("newaddedclass");
+                    $(a).removeClass("green");
+                    $(ui.draggable).addClass("green");
+                    $(a).attr('id', itemid);
+                    arr4.push(itemid1);
+                }
 
-		document.documentElement.onmousemove = moveDragContent;	// Mouse move event - moving draggable div
-		document.documentElement.onmouseup = dragDropEnd;	// Mouse move event - moving draggable div
+                ///// for multiple post dragging
+                if (ui.draggable.hasClass('active')) {
+                    //console.log('active');
+                    $('#container1 > .active').each(function() {
+                        // console.log($(this).attr('id'));
+                        var mulid = $(this).attr('id');
+                        tag = ui.draggable;
+                        var ab = $(this).clone().attr("id", $(this).attr("id")).appendTo("#category2").draggable({
+                        cursor: 'move',
+                        helper: 'clone',
+                        revert: 'invalid',
+                        start: function(e, ui) {
+                            ui.helper.animate({
+                                width: 60,
+                                height: 35
+                            });
+                        },
+                        cursorAt: {
+                            left: 30,
+                            top: 25
+                        }
+                    });
+                        //$(this).remove();
+                        $(ab).append("<img id='cross'style='float:right' src='cross.png' height='13px' width='13px'/>");
+                        $(ab).addClass("newaddedclass");
+                        $(".active").addClass("green");
+                        $('#category2 input').remove();
+                        $("#container1 .active").removeClass("active");
+                        $(ab).removeClass("green");
+                        $(ab).removeClass("active");
+                        $('.check').prop('checked', false);
 
+                        $(ab).attr('id', itemid);
+                        arr4.push(mulid);
+                    });
+                }
 
+                //arr4.push(itemid);
+                main_array['category2'] = arr4;
+            }
+        }
+    });
+    //main_array.push(arr3);
+    //  console.log(main_array);
 
-		var ulArray = dragDropTopContainer.getElementsByTagName('UL');
-		for(var no=0;no<ulArray.length;no++){
-			ulPositionArray[no] = new Array();
-			ulPositionArray[no]['left'] = getLeftPos(ulArray[no]);
-			ulPositionArray[no]['top'] = getTopPos(ulArray[no]);
-			ulPositionArray[no]['width'] = ulArray[no].offsetWidth;
-			ulPositionArray[no]['height'] = ulArray[no].clientHeight;
-			ulPositionArray[no]['obj'] = ulArray[no];
-		}
-		if(!indicateDestionationByUseOfArrow){
-			indicateDestinationBox = document.createElement('LI');
-			indicateDestinationBox.id = 'indicateDestination';
-			indicateDestinationBox.style.display='none';
-			document.body.appendChild(indicateDestinationBox);
+    $("#category3").droppable({
+        drop: function(event, ui) {
+            //console.log( event.target.id );
 
+            // string3.category3 = category3;
+            var itemid = $(event.originalEvent.toElement).attr("itemid");
+            var itemid1 = $(ui.draggable).attr("itemid");
+            if ($(ui.draggable).attr("itemid") === $("#category3 > #" + itemid1).attr("id")) {
+                alert('Can Drag One Post Only Once In One Category');
+            } else {
+                if (!ui.draggable.hasClass('active')) {
+                    tag = ui.draggable;
+                    var a = tag.clone().attr("itemid", tag.attr("itemid")).appendTo("#category3").draggable({
+                        cursor: 'move',
+                        helper: "clone",
+                        revert: 'invalid',
+                        start: function(e, ui) {
+                            ui.helper.animate({
+                                width: 60,
+                                height: 35
+                            });
+                        },
+                        cursorAt: {
+                            left: 30,
+                            top: 25
+                        }
+                    });
+                    counter += 1;
 
+                    $('#category3 input').remove();
+                    $(a).append("<img id='cross'style='float:right' src='cross.png' height='13px' width='13px'/>");
+                    $(a).addClass("newaddedclass");
+                    $(a).removeClass("green");
+                    $(ui.draggable).addClass("green");
+                    $(a).attr('id', itemid);
+                    arr6.push(itemid1);
+                }
 
-		}
-	}
+                ///// for multiple post dragging
+                if (ui.draggable.hasClass('active')) {
+                    //console.log('active');
+                    $('#container1 > .active').each(function() {
+                        // console.log($(this).attr('id'));
+                        var mulid = $(this).attr('id');
+                        tag = ui.draggable;
+                        var a = $(this).clone().attr("id", $(this).attr("id")).appendTo("#category3").draggable({
+                        cursor: 'move',
+                        helper: 'clone',
+                        revert: 'invalid',
+                        start: function(e, ui) {
+                            ui.helper.animate({
+                                width: 60,
+                                height: 35
+                            });
+                        },
+                        cursorAt: {
+                            left: 30,
+                            top: 25
+                        }
+                    });
+                        //$(this).remove();
+                        $(a).append("<img id='cross'style='float:right' src='cross.png' height='13px' width='13px'/>");
+                        $(a).addClass("newaddedclass");
+                        $(".active").addClass("green");
+                        $('#category3 input').remove();
+                        $("#container1 .active").removeClass("active");
+                        $(a).removeClass("green");
+                        $(a).removeClass("active");
+                        $('.check').prop('checked', false);
 
-	window.onload = initDragDropScript;
+                        $(a).attr('id', itemid);
+                        arr6.push(mulid);
+                    });
+                }
+
+                // arr6.push(itemid);
+                main_array['category3'] = arr6;
+            }
+        }
+    });
+    // main_array.push(arr5);
+
+    $("#category4").droppable({
+        drop: function(event, ui) {
+
+            //console.log( event.target.id );
+
+            //string4.category4 = category4;
+            var itemid = $(event.originalEvent.toElement).attr("itemid");
+            var itemid1 = $(ui.draggable).attr("itemid");
+            if ($(ui.draggable).attr("itemid") === $("#category4 > #" + itemid1).attr("id")) {
+                alert('Can Drag One Post Only Once In One Category');
+            } else {
+                if (!ui.draggable.hasClass('active')) {
+                    tag = ui.draggable;
+                    var a = tag.clone().attr("itemid", tag.attr("itemid")).appendTo("#category4").draggable({
+                        cursor: 'move',
+                        helper: "clone",
+                        revert: 'invalid',
+                        start: function(e, ui) {
+                            ui.helper.animate({
+                                width: 60,
+                                height: 35
+                            });
+                        },
+                        cursorAt: {
+                            left: 30,
+                            top: 25
+                        }
+                    });
+                    counter += 1;
+
+                    $('#category4 input').remove();
+                    $(a).append("<img id='cross'style='float:right' src='cross.png' height='13px' width='13px'/>");
+                    $(a).addClass("newaddedclass");
+                    $(a).removeClass("green");
+                    $(ui.draggable).addClass("green");
+                    $(a).attr('id', itemid);
+                    arr8.push(itemid1);
+                }
+
+                ///// for multiple post dragging
+                if (ui.draggable.hasClass('active')) {
+                    //console.log('active');
+                    $('#container1 > .active').each(function() {
+                        // console.log($(this).attr('id'));
+                        var mulid = $(this).attr('id');
+                        tag = ui.draggable;
+                        var a = $(this).clone().attr("id", $(this).attr("id")).appendTo("#category4").draggable({
+                        cursor: 'move',
+                        helper: 'clone',
+                        revert: 'invalid',
+                        start: function(e, ui) {
+                            ui.helper.animate({
+                                width: 60,
+                                height: 35
+                            });
+                        },
+                        cursorAt: {
+                            left: 30,
+                            top: 25
+                        }
+                    });
+                        //$(this).remove();
+                        $(a).append("<img id='cross'style='float:right' src='cross.png' height='13px' width='13px'/>");
+                        $(a).addClass("newaddedclass");
+                        $(".active").addClass("green");
+                        $('#category4 input').remove();
+                        $("#container1 .active").removeClass("active");
+                        $(a).removeClass("green");
+                        $(a).removeClass("active");
+                        $('.check').prop('checked', false);
+
+                        $(a).attr('id', itemid);
+                        arr8.push(mulid);
+                    });
+                }
+
+                // arr8.push(itemid);
+                main_array['category4'] = arr8;
+            }
+        }
+        //   });
+        // }
+    });
+    //main_array.push(arr7);
+
+    $("#category5").droppable({
+        drop: function(event, ui) {
+
+            var itemid = $(event.originalEvent.toElement).attr("itemid");
+            var itemid1 = $(ui.draggable).attr("itemid");
+            if ($(ui.draggable).attr("itemid") === $("#category5 > #" + itemid1).attr("id")) {
+                alert('Can Drag One Post Only Once In One Category');
+            } else {
+                if (!ui.draggable.hasClass('active')) {
+                    tag = ui.draggable;
+                    var a = tag.clone().attr("itemid", tag.attr("itemid")).appendTo("#category5").draggable({
+                        cursor: 'move',
+                        helper: "clone",
+                        revert: 'invalid',
+                        start: function(e, ui) {
+                            ui.helper.animate({
+                                width: 60,
+                                height: 35
+                            });
+                        },
+                        cursorAt: {
+                            left: 30,
+                            top: 25
+                        }
+                    });
+                    counter += 1;
+                    $('#category5 input').remove();
+                    $(a).append("<img id='cross'style='float:right' src='cross.png' height='13px' width='13px'/>");
+                    $(a).addClass("newaddedclass");
+                    $(a).removeClass("green");
+                    $(ui.draggable).addClass("green");
+                    $(a).attr('id', itemid);
+                    arr10.push(itemid1);
+                }
+
+                ///// for multiple post dragging
+                if (ui.draggable.hasClass('active')) {
+                    //console.log('active');
+                    $('#container1 > .active').each(function() {
+                        // console.log($(this).attr('id'));
+                        var mulid = $(this).attr('id');
+                        tag = ui.draggable;
+                        var a = $(this).clone().attr("id", $(this).attr("id")).appendTo("#category5").draggable({
+                        cursor: 'move',
+                        helper: 'clone',
+                        revert: 'invalid',
+                        start: function(e, ui) {
+                            ui.helper.animate({
+                                width: 60,
+                                height: 35
+                            });
+                        },
+                        cursorAt: {
+                            left: 30,
+                            top: 25
+                        }
+                    });
+                        //$(this).remove();
+                        $(a).append("<img id='cross'style='float:right' src='cross.png' height='13px' width='13px'/>");
+                        $(a).addClass("newaddedclass");
+                        $(".active").addClass("green");
+                        $('#category5 input').remove();
+                        $("#container1 .active").removeClass("active");
+                        $(a).removeClass("green");
+                        $(a).removeClass("active");
+                        $('.check').prop('checked', false);
+
+                        $(a).attr('id', itemid);
+                        arr10.push(mulid);
+                    });
+                }
+
+                // arr10.push(itemid);
+                main_array['category5'] = arr10;
+            }
+        }
+    });
+    //    main_array.push(arr9);
+
+    $("#category6").droppable({
+        drop: function(event, ui) {
+            var itemid = $(event.originalEvent.toElement).attr("itemid");
+            var itemid1 = $(ui.draggable).attr("itemid");
+            if ($(ui.draggable).attr("itemid") === $("#category6 > #" + itemid1).attr("id")) {
+                alert('Can Drag One Post Only Once In One Category');
+            } else {
+                if (!ui.draggable.hasClass('active')) {
+                    tag = ui.draggable;
+                    var a = tag.clone().attr("itemid", tag.attr("itemid")).appendTo("#category6").draggable({
+                        cursor: 'move',
+                        helper: "clone",
+                        revert: 'invalid',
+                        start: function(e, ui) {
+                            ui.helper.animate({
+                                width: 60,
+                                height: 35
+                            });
+                        },
+                        cursorAt: {
+                            left: 30,
+                            top: 25
+                        }
+                    });
+                    counter += 1;
+                    $('#category6 input').remove();
+                    $(a).append("<img id='cross'style='float:right' src='cross.png' height='13px' width='13px'/>");
+                    $(a).addClass("newaddedclass");
+                    $(a).removeClass("green");
+                    $(ui.draggable).addClass("green");
+                    $(a).attr('id', itemid);
+                    arr12.push(itemid1);
+                }
+       
+                ///// for multiple post dragging
+                if (ui.draggable.hasClass('active')) {
+                    //console.log('active');
+                    $('#container1 > .active').each(function() {
+                        // console.log($(this).attr('id'));
+                        var mulid = $(this).attr('id');
+                        tag = ui.draggable;
+                        var a = $(this).clone().attr("id", $(this).attr("id")).appendTo("#category6").draggable({
+                        cursor: 'move',
+                        helper: 'clone',
+                        revert: 'invalid',
+                        start: function(e, ui) {
+                            ui.helper.animate({
+                                width: 60,
+                                height: 35
+                            });
+                        },
+                        cursorAt: {
+                            left: 30,
+                            top: 25
+                        }
+                    });
+                        //$(this).remove();
+                        $(a).append("<img id='cross'style='float:right' src='cross.png' height='13px' width='13px'/>");
+                        $(a).addClass("newaddedclass");
+                        $(".active").addClass("green");
+                        $('#category6 input').remove();
+                        $("#container1 .active").removeClass("active");
+                        $(a).removeClass("green");
+                        $(a).removeClass("active");
+                        $('.check').prop('checked', false);
+
+                        $(a).attr('id', itemid);
+                        arr12.push(mulid);
+                    });
+                }
+
+                // arr12.push(itemid);
+                main_array['category6'] = arr12;
+            }
+        }
+    });
+    //main_array.push(arr11);
+    console.log(main_array);
+    //console.log(main_array.toString());
+
+});

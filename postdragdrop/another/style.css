@@ -9,21 +9,13 @@
 }
 
 .panel1, .panel2, .panel3, .panel4, .panel5 , .panel6{
-    padding: 40px;
+    padding: 60px;
     display: none;
 }
 
 .green{
 	background-color:lightgreen;
 }
-
-.red{
-	background-color:lightgreen;
-}
-
- /*div.ui-selectee {border: 4px solid #aaa; background-color:#44c765}
-      div.ui-selecting {border:4px dotted #000; background-color:yellow;}*/
-
 
 .draggable-helper {
     width:120px;
@@ -43,3 +35,12 @@ border:1px solid black;
 #container1 div{
 	margin-bottom: 5px;
 }
+
+.newaddedclass{
+	border:1px solid black;
+}
+
+#category1 div, #category2 div, #category3 div, #category4 div, #category5 div, #category6 div{
+	margin-bottom: 5px;
+}
+
