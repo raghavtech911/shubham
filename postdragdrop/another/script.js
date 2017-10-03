@@ -1,7 +1,8 @@
 $(function() {
 
     $('.mulselect').draggable();
-    ///////////////// for Post Searching
+
+    //////////////////////////// for Post Searching
     $("#filter").keyup(function() {
 
         // Retrieve the input field text and reset the count to zero
@@ -19,7 +20,7 @@ $(function() {
             } else {
                 //$(this).show();
                 $(this).parent().prependTo("#sapdleleitem");
-                $("#sapdleleitem").show();
+               // $("#sapdleleitem").show();
                 count++;
             }
         });
@@ -29,7 +30,7 @@ $(function() {
         //  $("#filter-count").text("Number of Comments = "+count);
     });
 
-    ///////////// for Category Searching
+    //////////////////////// for Category Searching
     $("#filter2").keyup(function() {
 
         // Retrieve the input field text and reset the count to zero
@@ -42,13 +43,14 @@ $(function() {
             // If the list item does not contain the text phrase fade it out
             if ($(this).text().search(new RegExp(filter, "i")) < 0) {
                 //$(this).fadeOut();
-                $(this).closest("div").fadeOut();
+                $(this).closest("div").parent().fadeOut();
                 //$(this).parent().fadeOut();
 
                 // Show the list item if the phrase matches and increase the count by 1
             } else {
                 //$(this).show();
-                $(this).closest("div").show();
+                $(this).closest("div").parent().show();
+                //$(this).parent().closest("div").prependTo("#sapdlelicategory");
                 //$(this).parent().parent().show();
                 count++;
             }
@@ -219,21 +221,17 @@ $(function() {
         }
     });
 
-
     $(".flip2").droppable({
         over: function() {
             $('.panel2').slideDown("slow");
         }
     });
 
-
     $(".flip3").droppable({
         over: function() {
             $('.panel3').slideDown("slow");
         }
     });
-
-
 
     $(".flip4").droppable({
         over: function() {
@@ -242,14 +240,11 @@ $(function() {
     });
 
 
-
     $(".flip5").droppable({
         over: function() {
             $('.panel5').slideDown("slow");
         }
     });
-
-
 
     $(".flip6").droppable({
         over: function() {
@@ -257,37 +252,36 @@ $(function() {
         }
     });
 
-
     ////////////////////////////////////////
     $(".panel1").droppable({
         out: function() {
-            $('.panel1').slideUp("fast");
+            $('.panel1').slideUp(1300);
         }
     });
 
     $(".panel2").droppable({
         out: function() {
-            $('.panel2').slideUp("fast");
+            $('.panel2').slideUp(1500);
         }
     });
     $(".panel3").droppable({
         out: function() {
-            $('.panel3').slideUp("fast");
+            $('.panel3').slideUp(1500);
         }
     });
     $(".panel4").droppable({
         out: function() {
-            $('.panel4').slideUp("fast");
+            $('.panel4').slideUp(1500);
         }
     });
     $(".panel5").droppable({
         out: function() {
-            $('.panel5').slideUp("fast");
+            $('.panel5').slideUp(1500);
         }
     });
     $(".panel6").droppable({
         out: function() {
-            $('.panel6').slideUp("fast");
+            $('.panel6').slideUp(1500);
         }
     });
     /////////////////////////////////////////////////////////////////
@@ -511,32 +505,40 @@ $(function() {
                     $('.active').each(function() {
                         console.log($(this).attr('id'));
                         tag = ui.draggable;
-                        var a = $(this).clone().attr("id", $(this).attr("id")).appendTo("#category1");
+                        var ab = $(this).clone().attr("id", $(this).attr("id")).appendTo("#category1").draggable({
+                        cursor: 'move',
+                        helper: 'clone',
+                        revert: 'invalid',
+                        start: function(e, ui) {
+                            ui.helper.animate({
+                                width: 60,
+                                height: 35
+                            });
+                        },
+                        cursorAt: {
+                            left: 30,
+                            top: 25
+                        }
+                    });
                         //$(this).remove();
-                        $(a).append("<img id='cross'style='float:right' src='cross.png' height='13px' width='13px'/>");
-                        $(a).addClass("newaddedclass");
+                        $(ab).append("<img id='cross'style='float:right' src='cross.png' height='13px' width='13px'/>");
+                        $(ab).addClass("newaddedclass");
                         $(".active").addClass("green");
                         $('#category1 input').remove();
                         $("#container1 .active").removeClass("active");
-                        $(a).removeClass("green");
-                        $(a).removeClass("active");
+                        $(ab).removeClass("green");
+                        $(ab).removeClass("active");
                         $('.check').prop('checked', false);
 
-                        $(a).attr('id', itemid);
+                        $(ab).attr('id', itemid);
                     });
                 }
-
-
-                // var type = 'category1';
-                // arr2.push(itemid);
-                // arr1[type] = arr2;
 
                 arr2.push(itemid);
                 main_array['category1'] = arr2;
             }
         }
     });
-
 
 
     $("#category2").droppable({
@@ -581,31 +583,38 @@ $(function() {
                     $(a).attr('id', itemid);
                 }
 
-                // var type = 'category2';
-                // arr4.push(itemid);
-                // arr3[type] = arr4;
-                // // console.log(arr3);
-
-
-
                 ///// for multiple post dragging
                 if (ui.draggable.hasClass('active')) {
-                    console.log('active');
+                    //console.log('active');
                     $('.active').each(function() {
                         console.log($(this).attr('id'));
                         tag = ui.draggable;
-                        var a = $(this).clone().attr("id", $(this).attr("id")).appendTo("#category2");
+                        var ab = $(this).clone().attr("id", $(this).attr("id")).appendTo("#category2").draggable({
+                        cursor: 'move',
+                        helper: 'clone',
+                        revert: 'invalid',
+                        start: function(e, ui) {
+                            ui.helper.animate({
+                                width: 60,
+                                height: 35
+                            });
+                        },
+                        cursorAt: {
+                            left: 30,
+                            top: 25
+                        }
+                    });
                         //$(this).remove();
-                        $(a).append("<img id='cross'style='float:right' src='cross.png' height='13px' width='13px'/>");
-                        $(a).addClass("newaddedclass");
+                        $(ab).append("<img id='cross'style='float:right' src='cross.png' height='13px' width='13px'/>");
+                        $(ab).addClass("newaddedclass");
                         $(".active").addClass("green");
                         $('#category2 input').remove();
                         $("#container1 .active").removeClass("active");
-                        $(a).removeClass("green");
-                        $(a).removeClass("active");
+                        $(ab).removeClass("green");
+                        $(ab).removeClass("active");
                         $('.check').prop('checked', false);
 
-                        $(a).attr('id', itemid);
+                        $(ab).attr('id', itemid);
                     });
                 }
 
@@ -616,7 +625,6 @@ $(function() {
     });
     //main_array.push(arr3);
     //  console.log(main_array);
-
 
     $("#category3").droppable({
         drop: function(event, ui) {
@@ -654,20 +662,28 @@ $(function() {
                     $(ui.draggable).addClass("green");
                     $(a).attr('id', itemid);
                 }
-                // var type = 'category3';
-                // arr6.push(itemid);
-                // arr5[type] = arr6;
-                //console.log(arr5);
-
-
 
                 ///// for multiple post dragging
                 if (ui.draggable.hasClass('active')) {
-                    console.log('active');
+                    //console.log('active');
                     $('.active').each(function() {
                         console.log($(this).attr('id'));
                         tag = ui.draggable;
-                        var a = $(this).clone().attr("id", $(this).attr("id")).appendTo("#category3");
+                        var a = $(this).clone().attr("id", $(this).attr("id")).appendTo("#category3").draggable({
+                        cursor: 'move',
+                        helper: 'clone',
+                        revert: 'invalid',
+                        start: function(e, ui) {
+                            ui.helper.animate({
+                                width: 60,
+                                height: 35
+                            });
+                        },
+                        cursorAt: {
+                            left: 30,
+                            top: 25
+                        }
+                    });
                         //$(this).remove();
                         $(a).append("<img id='cross'style='float:right' src='cross.png' height='13px' width='13px'/>");
                         $(a).addClass("newaddedclass");
@@ -686,8 +702,6 @@ $(function() {
                 main_array['category3'] = arr6;
             }
         }
-        //   });
-        // }
     });
     // main_array.push(arr5);
 
@@ -729,15 +743,27 @@ $(function() {
                     $(a).attr('id', itemid);
                 }
 
-
-
                 ///// for multiple post dragging
                 if (ui.draggable.hasClass('active')) {
-                    console.log('active');
+                    //console.log('active');
                     $('.active').each(function() {
                         console.log($(this).attr('id'));
                         tag = ui.draggable;
-                        var a = $(this).clone().attr("id", $(this).attr("id")).appendTo("#category4");
+                        var a = $(this).clone().attr("id", $(this).attr("id")).appendTo("#category4").draggable({
+                        cursor: 'move',
+                        helper: 'clone',
+                        revert: 'invalid',
+                        start: function(e, ui) {
+                            ui.helper.animate({
+                                width: 60,
+                                height: 35
+                            });
+                        },
+                        cursorAt: {
+                            left: 30,
+                            top: 25
+                        }
+                    });
                         //$(this).remove();
                         $(a).append("<img id='cross'style='float:right' src='cross.png' height='13px' width='13px'/>");
                         $(a).addClass("newaddedclass");
@@ -794,18 +820,28 @@ $(function() {
                     $(ui.draggable).addClass("green");
                     $(a).attr('id', itemid);
                 }
-                // var type = 'category5';
-                // arr10.push(itemid);
-                // arr9[type] = arr10;
-
 
                 ///// for multiple post dragging
                 if (ui.draggable.hasClass('active')) {
-                    console.log('active');
+                    //console.log('active');
                     $('.active').each(function() {
                         console.log($(this).attr('id'));
                         tag = ui.draggable;
-                        var a = $(this).clone().attr("id", $(this).attr("id")).appendTo("#category5");
+                        var a = $(this).clone().attr("id", $(this).attr("id")).appendTo("#category5").draggable({
+                        cursor: 'move',
+                        helper: 'clone',
+                        revert: 'invalid',
+                        start: function(e, ui) {
+                            ui.helper.animate({
+                                width: 60,
+                                height: 35
+                            });
+                        },
+                        cursorAt: {
+                            left: 30,
+                            top: 25
+                        }
+                    });
                         //$(this).remove();
                         $(a).append("<img id='cross'style='float:right' src='cross.png' height='13px' width='13px'/>");
                         $(a).addClass("newaddedclass");
@@ -859,18 +895,28 @@ $(function() {
                     $(ui.draggable).addClass("green");
                     $(a).attr('id', itemid);
                 }
-                // var type = 'category6';
-                // arr12.push(itemid);
-                // arr11[type] = arr12;
-
-
+       
                 ///// for multiple post dragging
                 if (ui.draggable.hasClass('active')) {
-                    console.log('active');
+                    //console.log('active');
                     $('.active').each(function() {
                         console.log($(this).attr('id'));
                         tag = ui.draggable;
-                        var a = $(this).clone().attr("id", $(this).attr("id")).appendTo("#category6");
+                        var a = $(this).clone().attr("id", $(this).attr("id")).appendTo("#category6").draggable({
+                        cursor: 'move',
+                        helper: 'clone',
+                        revert: 'invalid',
+                        start: function(e, ui) {
+                            ui.helper.animate({
+                                width: 60,
+                                height: 35
+                            });
+                        },
+                        cursorAt: {
+                            left: 30,
+                            top: 25
+                        }
+                    });
                         //$(this).remove();
                         $(a).append("<img id='cross'style='float:right' src='cross.png' height='13px' width='13px'/>");
                         $(a).addClass("newaddedclass");
@@ -893,9 +939,5 @@ $(function() {
     //main_array.push(arr11);
     console.log(main_array);
     //console.log(main_array.toString());
-
-    // $("#cross").click(function(){
-    //     console.log('deleted');
-    // });
 
 });

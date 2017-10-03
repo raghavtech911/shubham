@@ -9,15 +9,13 @@
 }
 
 .panel1, .panel2, .panel3, .panel4, .panel5 , .panel6{
-    padding: 50px;
+    padding: 40px;
     display: none;
 }
-
 
 .green{
 	background-color:lightgreen;
 }
-
 
 .red{
 	background-color:lightgreen;
@@ -31,4 +29,17 @@
     width:120px;
     display:inline-block;
     list-style-type:none;
+}
+
+#container1 .btn{  
+/*border-bottom:1px solid black;*/
+border:1px solid black;
+}
+
+.check{
+	float: left;
+}
+
+#container1 div{
+	margin-bottom: 5px;
 }
