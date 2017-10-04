@@ -19,7 +19,7 @@ $(function() {
                 // Show the list item if the phrase matches and increase the count by 1
             } else {
                 //$(this).show();
-                $(this).parent().prependTo("#sapdleleitem");
+                $(this).parent().prependTo("#container1");
                // $("#sapdleleitem").show();
                 count++;
             }
@@ -49,6 +49,7 @@ $(function() {
                 // Show the list item if the phrase matches and increase the count by 1
             } else {
                 //$(this).show();
+                // $(this).closest("div").parent().addClass("active").show;
                 $(this).closest("div").parent().show();
                 //$(this).parent().closest("div").prependTo("#sapdlelicategory");
                 //$(this).parent().parent().show();
@@ -355,6 +356,16 @@ $(function() {
             left: 30,
             top: 25
         }
+
+  //       start: function(event, ui) {
+  //   $(ui.helper).css('width', "35%");
+  //    $(ui.helper).css('height', "20%");
+  // },
+  //  cursorAt: {
+  //            left: 30,
+  //            top: 25
+  //        }
+
     });
 
     ///////////////// to drag multiple elements
@@ -376,7 +387,9 @@ $(function() {
 
     $("#container1").droppable({
         drop: function(event, ui) {
-            var itemid = $(event.originalEvent.toElement).attr("itemid");
+            //var itemid = $(event.originalEvent.toElement).attr("itemid");
+            var itemid = $(ui.draggable).attr("itemid");
+            //alert(itemid);
               if(ui.draggable.parent().attr("id")=="category1" || ui.draggable.parent().attr("id")=="category2" ||
                 ui.draggable.parent().attr("id")=="category3" || ui.draggable.parent().attr("id")=="category4" ||
                 ui.draggable.parent().attr("id")=="category5" || ui.draggable.parent().attr("id")=="category6"){ 
@@ -478,17 +491,22 @@ $(document).on("click", ".cross", function(){
                         cursor: 'move',
                         helper: "clone",
                         revert: 'invalid',
-                        start: function(e, ui) {
-                            ui.helper.animate({
-                                width: 60,
-                                height: 35
-                            });
-                        },
-                        cursorAt: {
-                            left: 30,
-                            top: 25
-                        }
-                    });
+                        // start: function(e, ui) {
+                        //     ui.helper.animate({
+                        //         width: 60,
+                        //         height: 35
+
+                        //     });
+                        // },
+                        // cursorAt: {
+                        //     left: 30,
+                        //     top: 17
+                        // }
+                        start: function(event, ui) {
+    $(ui.helper).css('width', "35%", 'height', "35%");
+     $(ui.helper).css('height', "20%");
+  }
+                });
                     counter += 1;
                     $('#category1 input').remove();
                     var del = "<button type='button' style='float:right;' class='cross'><img src='cross.png' height='8px' width='8px'/></button>" ;
@@ -524,8 +542,8 @@ $(document).on("click", ".cross", function(){
                             });
                         },
                         cursorAt: {
-                            left: 30,
-                            top: 25
+                            left: 35,
+                            top: 17
                         }
                     });
                         //$(this).remove();
