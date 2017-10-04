@@ -76,6 +76,51 @@ $(function() {
         }
     }
 
+////////////////function to delete items from arrays
+    function deleteitem (itemid) {
+         var index1 = arr2.indexOf(itemid);
+            if (index1 > -1) {
+                arr2.splice(index1, 1);
+            }
+            main_array[category1] = arr2;
+
+        var index2 = arr4.indexOf(itemid);
+            if (index2 > -1) {
+                arr4.splice(index2, 1);
+            }
+            main_array[category2] = arr4;
+
+        var index3 = arr6.indexOf(itemid);
+            if (index3 > -1) {
+                arr6.splice(index3, 1);
+            }
+            // alert(arr6);
+            main_array[category3] = arr6;
+
+        var index4 = arr8.indexOf(itemid);
+            if (index4 > -1) {
+                arr8.splice(index4, 1);
+            }
+            // alert(arr8);
+            main_array[category4] = arr8;
+
+        var index5 = arr10.indexOf(itemid);
+            if (index5 > -1) {
+                arr10.splice(index5, 1);
+            }
+            // alert(arr10);
+            main_array[category5] = arr10;
+
+        var index6 = arr12.indexOf(itemid);
+            if (index6 > -1) {
+                arr12.splice(index6, 1);
+            }
+            // alert(arr12);
+            main_array[category6] = arr12;
+
+            console.log(main_array);
+    }
+
     ////////////////////////////////////////////////////////////////////////////
 
     $('.flip1').click(function() {
@@ -327,7 +372,7 @@ $(function() {
         }
     });
 
-    ////////////////////////////////////
+    /////////////////////////////////////////
 
     $("#container1").droppable({
         drop: function(event, ui) {
@@ -344,53 +389,11 @@ $(function() {
             var k = ui.draggable.attr("itemid");
             if (counter > 0) {} else {
                 //if($(".box-item").attr("itemid")== k ){
-                $(".box-item").removeClass("green"); // to remove the green background
+                $(".box-item#"+itemid).removeClass("green"); // to remove the green background
             }
 
-            //remove the element form array 
-            var index1 = arr2.indexOf(itemid);
-            if (index1 > -1) {
-                arr2.splice(index1, 1);
-            }
-            //alert(arr2);
-            //arr1[category1] = arr2;
-            main_array[category1] = arr2;
-
-            var index2 = arr4.indexOf(itemid);
-            if (index2 > -1) {
-                arr4.splice(index2, 1);
-            }
-            main_array[category2] = arr4;
-
-            var index3 = arr6.indexOf(itemid);
-            if (index3 > -1) {
-                arr6.splice(index3, 1);
-            }
-            // alert(arr6);
-            main_array[category3] = arr6;
-
-            var index4 = arr8.indexOf(itemid);
-            if (index4 > -1) {
-                arr8.splice(index4, 1);
-            }
-            // alert(arr8);
-            main_array[category4] = arr8;
-
-            var index5 = arr10.indexOf(itemid);
-            if (index5 > -1) {
-                arr10.splice(index5, 1);
-            }
-            // alert(arr10);
-            main_array[category5] = arr10;
-
-            var index6 = arr12.indexOf(itemid);
-            if (index6 > -1) {
-                arr12.splice(index6, 1);
-            }
-            // alert(arr12);
-            main_array[category6] = arr12;
-
-            console.log(main_array);
+             deleteitem(itemid);//call to function to remove the element form array 
+            
         }
     });
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -445,47 +448,10 @@ $(document).on("click", ".cross", function(){
     var itemid = this.parentNode.id;
     this.parentNode.remove();
 
-        var index1 = arr2.indexOf(itemid);
-            if (index1 > -1) {
-                arr2.splice(index1, 1);
-            }
-            main_array[category1] = arr2;
+    $(".box-item#"+itemid).removeClass("green");
 
-        var index2 = arr4.indexOf(itemid);
-            if (index2 > -1) {
-                arr4.splice(index2, 1);
-            }
-            main_array[category2] = arr4;
+    deleteitem(itemid);  // call to function to remove elements form array
 
-        var index3 = arr6.indexOf(itemid);
-            if (index3 > -1) {
-                arr6.splice(index3, 1);
-            }
-            // alert(arr6);
-            main_array[category3] = arr6;
-
-        var index4 = arr8.indexOf(itemid);
-            if (index4 > -1) {
-                arr8.splice(index4, 1);
-            }
-            // alert(arr8);
-            main_array[category4] = arr8;
-
-        var index5 = arr10.indexOf(itemid);
-            if (index5 > -1) {
-                arr10.splice(index5, 1);
-            }
-            // alert(arr10);
-            main_array[category5] = arr10;
-
-        var index6 = arr12.indexOf(itemid);
-            if (index6 > -1) {
-                arr12.splice(index6, 1);
-            }
-            // alert(arr12);
-            main_array[category6] = arr12;
-
-            console.log(main_array);
 });
 
 
