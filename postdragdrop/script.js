@@ -75,6 +75,7 @@ $(function() {
             });
         }
     }
+
     ////////////////////////////////////////////////////////////////////////////
 
     $('.flip1').click(function() {
@@ -329,13 +330,17 @@ $(function() {
     ////////////////////////////////////
 
     $("#container1").droppable({
-        //accept: "#category1",
         drop: function(event, ui) {
             var itemid = $(event.originalEvent.toElement).attr("itemid");
-            // alert(itemid);
+              if(ui.draggable.parent().attr("id")=="category1" || ui.draggable.parent().attr("id")=="category2" ||
+                ui.draggable.parent().attr("id")=="category3" || ui.draggable.parent().attr("id")=="category4" ||
+                ui.draggable.parent().attr("id")=="category5" || ui.draggable.parent().attr("id")=="category6"){ 
             if (ui.draggable.remove()) {
                 counter -= 1; // to count number
             } // to remove the dragged item
+        }else{
+            alert("don't dragin itself");
+        }
             var k = ui.draggable.attr("itemid");
             if (counter > 0) {} else {
                 //if($(".box-item").attr("itemid")== k ){
@@ -435,31 +440,56 @@ $(function() {
     //  console.log(main_array);
 
 
+$(document).on("click", ".cross", function(){
+    console.log(this.parentNode.id);
+    var itemid = this.parentNode.id;
+    this.parentNode.remove();
+
+        var index1 = arr2.indexOf(itemid);
+            if (index1 > -1) {
+                arr2.splice(index1, 1);
+            }
+            main_array[category1] = arr2;
+
+        var index2 = arr4.indexOf(itemid);
+            if (index2 > -1) {
+                arr4.splice(index2, 1);
+            }
+            main_array[category2] = arr4;
+
+        var index3 = arr6.indexOf(itemid);
+            if (index3 > -1) {
+                arr6.splice(index3, 1);
+            }
+            // alert(arr6);
+            main_array[category3] = arr6;
+
+        var index4 = arr8.indexOf(itemid);
+            if (index4 > -1) {
+                arr8.splice(index4, 1);
+            }
+            // alert(arr8);
+            main_array[category4] = arr8;
+
+        var index5 = arr10.indexOf(itemid);
+            if (index5 > -1) {
+                arr10.splice(index5, 1);
+            }
+            // alert(arr10);
+            main_array[category5] = arr10;
+
+        var index6 = arr12.indexOf(itemid);
+            if (index6 > -1) {
+                arr12.splice(index6, 1);
+            }
+            // alert(arr12);
+            main_array[category6] = arr12;
+
+            console.log(main_array);
+});
 
 
-    //     $("#category1").droppable({
-    //     drop: function(event, ui) {
-    //         console.log('dropped');
-    //         var $this = $(this);
-    //         var selectedObjects = new Array();
-    //         if (ui.draggable.hasClass('active')) {
-    //             console.log('active');
-    //             // get all active items
-    //             $('.active').each(function() {
-    //                 console.log($(this).attr('id'));
-    //                 selectedObjects.push($(this).attr('id'));
-    //                 $(this).remove();
-    //             });
-    //         } else {
-    //             console.log('not active');
-    //             //selectedObjects.push(ui.draggable.attr('id'));
-    //             ui.draggable.remove();
-    //         }
-    //         $this.append(', ' + selectedObjects.join(', '));
-    //     }
-    // });
-
-
+////////////////////Dropping and dragging back again form category1
     $("#category1").droppable({
        // accept: '#divsecond:not(#category1)',
         drop: function(event, ui) {
@@ -495,13 +525,18 @@ $(function() {
                     });
                     counter += 1;
                     $('#category1 input').remove();
-                    $(a).append("<img id='cross'style='float:right' src='cross.png' height='13px' width='13px'/>");
+                    var del = "<button type='button' style='float:right;' class='cross'><img src='cross.png' height='8px' width='8px'/></button>" ;
+                     $(a).append(del);
                     $(a).addClass("newaddedclass");
                     $(a).removeClass("green");
+                    // //new added
+                    // $(a).removeClass("btn");
                     $(ui.draggable).addClass("green");
                     $(a).attr('id', itemid);
                     arr2.push(itemid1);
                 }
+
+
 
                 ///// for multiple post dragging
                 if (ui.draggable.hasClass('active')) {
@@ -511,6 +546,7 @@ $(function() {
                         //console.log($(this).attr('id'));
                         var mulid = $(this).attr('id');
                         tag = ui.draggable;
+                        //droping draged element and making it draggable again
                         var ab = $(this).clone().attr("id", $(this).attr("id")).appendTo("#category1").draggable({
                         cursor: 'move',
                         helper: 'clone',
@@ -527,7 +563,9 @@ $(function() {
                         }
                     });
                         //$(this).remove();
-                        $(ab).append("<img id='cross'style='float:right' src='cross.png' height='13px' width='13px'/>");
+                        var del = "<button type='button' style='float:right;' class='cross'><img src='cross.png' height='8px' width='8px'/></button>" ;
+                     $(ab).append(del);
+                        //$(ab).append("<img id='cross' style='float:right' src='cross.png' height='13px' width='13px'/>");
                         $(ab).addClass("newaddedclass");
                         $(".active").addClass("green");
                         $('#category1 input').remove();
@@ -549,6 +587,7 @@ $(function() {
     });
 
 
+////////////////////Dropping and dragging back again form category2
     $("#category2").droppable({
         drop: function(event, ui) {
             var itemid = $(event.originalEvent.toElement).attr("itemid");
@@ -564,6 +603,8 @@ $(function() {
                     //     helper: "clone",
                     //     revert: 'invalid'
                     // });
+
+                    //droping draged element and making it draggable again
                     var a = tag.clone().attr("itemid", tag.attr("itemid")).appendTo("#category2").draggable({
                         cursor: 'move',
                         helper: "clone",
@@ -584,7 +625,9 @@ $(function() {
                     // $(a).removeClass("green");
                     // $(ui.draggable).addClass("green");
                     $('#category2 input').remove();
-                    $(a).append("<img id='cross'style='float:right' src='cross.png' height='13px' width='13px'/>");
+                    var del = "<button type='button' style='float:right;' class='cross'><img src='cross.png' height='8px' width='8px'/></button>" ;
+                     $(a).append(del);
+                    //$(a).append("<img id='cross'style='float:right' src='cross.png' height='13px' width='13px'/>");
                     $(a).addClass("newaddedclass");
                     $(a).removeClass("green");
                     $(ui.draggable).addClass("green");
@@ -599,6 +642,7 @@ $(function() {
                         // console.log($(this).attr('id'));
                         var mulid = $(this).attr('id');
                         tag = ui.draggable;
+                        //droping draged element and making it draggable again
                         var ab = $(this).clone().attr("id", $(this).attr("id")).appendTo("#category2").draggable({
                         cursor: 'move',
                         helper: 'clone',
@@ -615,7 +659,9 @@ $(function() {
                         }
                     });
                         //$(this).remove();
-                        $(ab).append("<img id='cross'style='float:right' src='cross.png' height='13px' width='13px'/>");
+                         var del = "<button type='button' style='float:right;' class='cross'><img src='cross.png' height='8px' width='8px'/></button>" ;
+                     $(ab).append(del);
+                        //$(ab).append("<img id='cross'style='float:right' src='cross.png' height='13px' width='13px'/>");
                         $(ab).addClass("newaddedclass");
                         $(".active").addClass("green");
                         $('#category2 input').remove();
@@ -637,6 +683,7 @@ $(function() {
     //main_array.push(arr3);
     //  console.log(main_array);
 
+////////////////////Dropping and dragging back again form category3
     $("#category3").droppable({
         drop: function(event, ui) {
             //console.log( event.target.id );
@@ -649,6 +696,7 @@ $(function() {
             } else {
                 if (!ui.draggable.hasClass('active')) {
                     tag = ui.draggable;
+                    //droping draged element and making it draggable again
                     var a = tag.clone().attr("itemid", tag.attr("itemid")).appendTo("#category3").draggable({
                         cursor: 'move',
                         helper: "clone",
@@ -667,7 +715,9 @@ $(function() {
                     counter += 1;
 
                     $('#category3 input').remove();
-                    $(a).append("<img id='cross'style='float:right' src='cross.png' height='13px' width='13px'/>");
+                    var del = "<button type='button' style='float:right;' class='cross'><img src='cross.png' height='8px' width='8px'/></button>" ;
+                     $(a).append(del);
+                    //$(a).append("<img id='cross'style='float:right' src='cross.png' height='13px' width='13px'/>");
                     $(a).addClass("newaddedclass");
                     $(a).removeClass("green");
                     $(ui.draggable).addClass("green");
@@ -682,6 +732,7 @@ $(function() {
                         // console.log($(this).attr('id'));
                         var mulid = $(this).attr('id');
                         tag = ui.draggable;
+                        //droping draged element and making it draggable again
                         var a = $(this).clone().attr("id", $(this).attr("id")).appendTo("#category3").draggable({
                         cursor: 'move',
                         helper: 'clone',
@@ -698,7 +749,9 @@ $(function() {
                         }
                     });
                         //$(this).remove();
-                        $(a).append("<img id='cross'style='float:right' src='cross.png' height='13px' width='13px'/>");
+                         var del = "<button type='button' style='float:right;' class='cross'><img src='cross.png' height='8px' width='8px'/></button>" ;
+                     $(a).append(del);
+                        //$(a).append("<img id='cross'style='float:right' src='cross.png' height='13px' width='13px'/>");
                         $(a).addClass("newaddedclass");
                         $(".active").addClass("green");
                         $('#category3 input').remove();
@@ -719,6 +772,7 @@ $(function() {
     });
     // main_array.push(arr5);
 
+////////////////////Dropping and dragging back again form category4
     $("#category4").droppable({
         drop: function(event, ui) {
 
@@ -750,7 +804,9 @@ $(function() {
                     counter += 1;
 
                     $('#category4 input').remove();
-                    $(a).append("<img id='cross'style='float:right' src='cross.png' height='13px' width='13px'/>");
+                    var del = "<button type='button' style='float:right;' class='cross'><img src='cross.png' height='8px' width='8px'/></button>" ;
+                     $(a).append(del);
+                    // $(a).append("<img id='cross'style='float:right' src='cross.png' height='13px' width='13px'/>");
                     $(a).addClass("newaddedclass");
                     $(a).removeClass("green");
                     $(ui.draggable).addClass("green");
@@ -765,6 +821,7 @@ $(function() {
                         // console.log($(this).attr('id'));
                         var mulid = $(this).attr('id');
                         tag = ui.draggable;
+                        //droping draged element and making it draggable again
                         var a = $(this).clone().attr("id", $(this).attr("id")).appendTo("#category4").draggable({
                         cursor: 'move',
                         helper: 'clone',
@@ -781,7 +838,9 @@ $(function() {
                         }
                     });
                         //$(this).remove();
-                        $(a).append("<img id='cross'style='float:right' src='cross.png' height='13px' width='13px'/>");
+                         var del = "<button type='button' style='float:right;' class='cross'><img src='cross.png' height='8px' width='8px'/></button>" ;
+                     $(a).append(del);
+                        //$(a).append("<img id='cross'style='float:right' src='cross.png' height='13px' width='13px'/>");
                         $(a).addClass("newaddedclass");
                         $(".active").addClass("green");
                         $('#category4 input').remove();
@@ -804,6 +863,8 @@ $(function() {
     });
     //main_array.push(arr7);
 
+
+////////////////////Dropping and dragging back again form category5
     $("#category5").droppable({
         drop: function(event, ui) {
 
@@ -814,6 +875,7 @@ $(function() {
             } else {
                 if (!ui.draggable.hasClass('active')) {
                     tag = ui.draggable;
+                    //droping draged element and making it draggable again
                     var a = tag.clone().attr("itemid", tag.attr("itemid")).appendTo("#category5").draggable({
                         cursor: 'move',
                         helper: "clone",
@@ -831,7 +893,9 @@ $(function() {
                     });
                     counter += 1;
                     $('#category5 input').remove();
-                    $(a).append("<img id='cross'style='float:right' src='cross.png' height='13px' width='13px'/>");
+                    var del = "<button type='button' style='float:right;' class='cross'><img src='cross.png' height='8px' width='8px'/></button>" ;
+                     $(a).append(del);
+                    // $(a).append("<img id='cross'style='float:right' src='cross.png' height='13px' width='13px'/>");
                     $(a).addClass("newaddedclass");
                     $(a).removeClass("green");
                     $(ui.draggable).addClass("green");
@@ -846,6 +910,7 @@ $(function() {
                         // console.log($(this).attr('id'));
                         var mulid = $(this).attr('id');
                         tag = ui.draggable;
+                        //droping draged element and making it draggable again
                         var a = $(this).clone().attr("id", $(this).attr("id")).appendTo("#category5").draggable({
                         cursor: 'move',
                         helper: 'clone',
@@ -862,7 +927,9 @@ $(function() {
                         }
                     });
                         //$(this).remove();
-                        $(a).append("<img id='cross'style='float:right' src='cross.png' height='13px' width='13px'/>");
+                         var del = "<button type='button' style='float:right;' class='cross'><img src='cross.png' height='8px' width='8px'/></button>" ;
+                     $(a).append(del);
+                        //$(a).append("<img id='cross'style='float:right' src='cross.png' height='13px' width='13px'/>");
                         $(a).addClass("newaddedclass");
                         $(".active").addClass("green");
                         $('#category5 input').remove();
@@ -883,6 +950,7 @@ $(function() {
     });
     //    main_array.push(arr9);
 
+////////////////////Dropping and dragging back again form category6
     $("#category6").droppable({
         drop: function(event, ui) {
             var itemid = $(event.originalEvent.toElement).attr("itemid");
@@ -892,6 +960,7 @@ $(function() {
             } else {
                 if (!ui.draggable.hasClass('active')) {
                     tag = ui.draggable;
+                    //droping draged element and making it draggable again
                     var a = tag.clone().attr("itemid", tag.attr("itemid")).appendTo("#category6").draggable({
                         cursor: 'move',
                         helper: "clone",
@@ -909,7 +978,9 @@ $(function() {
                     });
                     counter += 1;
                     $('#category6 input').remove();
-                    $(a).append("<img id='cross'style='float:right' src='cross.png' height='13px' width='13px'/>");
+                    var del = "<button type='button' style='float:right;' class='cross'><img src='cross.png' height='8px' width='8px'/></button>" ;
+                     $(a).append(del);
+                    // $(a).append("<img id='cross'style='float:right' src='cross.png' height='13px' width='13px'/>");
                     $(a).addClass("newaddedclass");
                     $(a).removeClass("green");
                     $(ui.draggable).addClass("green");
@@ -940,7 +1011,9 @@ $(function() {
                         }
                     });
                         //$(this).remove();
-                        $(a).append("<img id='cross'style='float:right' src='cross.png' height='13px' width='13px'/>");
+                         var del = "<button type='button' style='float:right;' class='cross'><img src='cross.png' height='8px' width='8px'/></button>" ;
+                     $(a).append(del);
+                        //$(a).append("<img id='cross'style='float:right' src='cross.png' height='13px' width='13px'/>");
                         $(a).addClass("newaddedclass");
                         $(".active").addClass("green");
                         $('#category6 input').remove();
