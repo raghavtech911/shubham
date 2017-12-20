@@ -1,54 +1,8 @@
 <?php
-	$con = mysqli_connect("localhost","root","","csv_db");
+	$con = mysqli_connect("localhost","sketch_tsrepo","HN4CjQsx","sketch_tsrepo");
 	if (mysqli_connect_errno())
 	  	{
 	  		echo "Failed to connect to MySQL: " . mysqli_connect_error();
-		}
-
-		if(isset($_POST["export"])){
-		$start_date = $_POST['startdate'];
-		$end_date = $_POST['enddate'];
-		$user = $_POST['user_select'];
-		
-		  	$fileName = $user.'-full-csv.csv';
-		  	$num = 0;
-		  	ob_end_clean();
-
-		  	$sql = "SELECT project, task, time, date FROM csv_info WHERE user_id='".$user."' AND date>= '".$start_date."' AND date<= '".$end_date."' ORDER BY date";
-
-			if($result = mysqli_query($con, $sql)){
-				while($row = mysqli_fetch_assoc($result)){
-					$things[$row['project']][$row['date']] 	= 	$row['time'];
-					$kk[$row['task']][$row['date']] 		= 	$row['time'];
-					$thg[$row['project']][$row['task']] 	= 	$row['time'];
-					$arrforpro[$row['task']] 				=  	$row['project'];
-
-					foreach($kk as $key=>$value){
-						foreach ($arrforpro as $x => $y) {
-							if($key == $x){
-								$prod[$num]['project']  = $y;
-								$current_project = $y;
-							}
-						}
-						$prod[$num]['task']     = $key;
-						
-						$num++;
-					}
-				}
-			}
-
-
-	 			$fp = fopen('php://output', 'w');
-	 			header('Content-Type: application/excel');
-	 			header('Content-Disposition: attachment; filename="' . $fileName . '"');
-
-  				fputcsv($fp, array('User:'.$user. '; From: '.$start_date.'  To: '.$end_date));
-	 			 fputcsv($fp, array('Project Name','Task','time'));
-	 			  foreach($prod as $product) {
-		 		 	    fputcsv($fp, $product);
-					  }
-			 	fclose($fp);
-			 	exit(0); // to not get html in csv file
 		}
 ?>
 <!DOCTYPE html>
@@ -118,7 +72,6 @@
 			if($r = mysqli_query($con, $query)){
 				while ($row = mysqli_fetch_assoc($r)){
 					echo '<option value="'. $row["user_id"] .'" >'. $row["user_name"] .'</option>';
-					$user_name = $row["user_name"];
 				}
 			} 
 	?>	
@@ -153,16 +106,16 @@ if(isset($_POST['submit'])){
 		 	echo " From ".$start_date.""; 
 		 	echo "  To ".$end_date ." </span>";
 		 	// echo "<input type='submit' name='export' value='Export To CSV' class='btn btn-info' style='float:right; margin-bottom: 7px;'> <br>";
-		 	echo "<table width='100%' class='table table-bordered table-dark table-hover'>";
-		 	// echo "<table border='1' width='100%'>";
+		 	// echo "<table width='100%' class='table table-bordered'>";
+		 	echo "<table border='1' width='100%'>";
 		 	echo"
 		 	<col width='100px'>
-		 	<tr bgcolor = ''>
+		 	<tr bgcolor = '#d5efef'>
 		 	<th rowspan = '2'>Project</th>
 		 	<th rowspan = '2'>Task</th>
-		 	";// #d5efef
+		 	";
 
-/*		 	#------- to get the dates from the csv_info table as columns names---------
+		 	#------- to get the dates from the csv_info table as columns names---------
 		 	$r = "SELECT distinct date, day 
 		 		  FROM csv_info 
 		 		  WHERE user_id='".$user."' 
@@ -178,35 +131,31 @@ if(isset($_POST['submit'])){
 		 	 			echo "<th colspan='2'>".$newdate."<br />".$newday."</th>";
 		 	 			$columns[] = 	$row1['date'];
 		 	 		}
-		 		}*/
-		 	
+		 		}
+
+		 	/*
 		 	#------- to get the all dates as columns names---------
 		 	$begin = new DateTime( $start_date );
 			$end   = new DateTime( $end_date );
 
 			for($i = $begin; $i <= $end; $i->modify('+1 day')){
-				$dd 	   = 	$i->format("Y-m-d"); 					#get date
-				$newday    = 	date("D",strtotime($dd)); 		# get day as Mon
-		 		$newdate   = 	date("d/m",strtotime($dd));  	# get date as 01/08
-				echo "<th colspan='2'>".$newdate."<br />".$newday."</th>";
+				echo "<th colspan='2'>".$i->format("Y-m-d")."</th>";
 				$columns[] = $i->format("Y-m-d");
-			}
+			}*/
 
 		echo "<th rowspan='2'>Total Time <small>In hours</small></th>
 			  <th rowspan='2'>Total Time to do <small></small></th>
 			</tr>";
 			 
 		echo "<tr>";
-		//if($re = mysqli_query($con, $r)){
-			//while($row1 = mysqli_fetch_assoc($re)){
-			$begin = new DateTime( $start_date );
-			$end   = new DateTime( $end_date );
-		  for($i = $begin; $i <= $end; $i->modify('+1 day')){
-            	echo "<th>Done</th>"; //#d5efef
-             	echo "<th>To do</th>"; //#d5efef
-               }
-        //	}
-        //}
+		if($re = mysqli_query($con, $r)){
+			while($row1 = mysqli_fetch_assoc($re)){
+		 // for($i = $begin; $i <= $end; $i->modify('+1 day')){
+            	 echo "<th bgcolor = '#d5efef'>Done</th>";
+             	echo "<th bgcolor = '#d5efef'>To do</th>";
+              // }
+        	}
+        }
           echo "</tr>";
 
 		while($row = mysqli_fetch_assoc($result)){
@@ -256,8 +205,7 @@ if(isset($_POST['submit'])){
 
 					    foreach ($arrforpro as $x => $y) {
 					    	if($key == $x){
-					    	echo "<td style=' width:280px;'><strong>".$y."</strong></td>"; # print project name
-
+					    	echo "<td style=' width:280px;'>".$y."</td>"; # print project name
 					    	$current_project = $y;
 					    	}
 					    }
@@ -266,18 +214,19 @@ if(isset($_POST['submit'])){
 					 
 					    foreach($columns as $column){
 					        echo "<td>".(isset($value[$column]) ? $value[$column] : 0.0)."</td>"; # prints the time in right column of dates
-					         $arr = get_data($con, $user, $column);
+					         $arr =get_data($con, $user, $column);
 					     
 					     	if($arr['projectname'] == $current_project){
-					         echo "<td bgcolor=''> <strong style='color:red;'>"; //#CCCCCC
+					         echo "<td bgcolor='#CCCCCC'> <strong style='color:red;'>";
 					         
 					        	if(isset($arr['durationofit'])){
 					         		echo $arr['durationofit'];
 					         		$countduration += $arr['durationofit'];
+					         	// var_dump($countduration);
 					     		}
-					        	echo "</strong> </td>";
+					        echo "</strong> </td>";
 					     	}else{
-					     		 echo "<td bgcolor=''> 00.00 </td>"; //#CCCCCC
+					     		 echo "<td bgcolor='#CCCCCC'> 0 </td>";
 					     	 }
 					    }
 
@@ -301,6 +250,20 @@ if(isset($_POST['submit'])){
 		echo "</table></div>";
 	}
 }
+
+/*
+TASK:
+ PHP File to generate another user report about the assigned projects and their duration from the database 
+
+ Completed: 
+  Generated a report which shows how much time is alloted to the project and how much time is spent on it.
+
+  Remaining: 
+   Styling of the table on view page
+
+   LINK:
+
+*/
 
 #----------------------------------Function--------------------------------------------
 function get_data($con, $user, $startdate){
@@ -328,28 +291,27 @@ function get_data($con, $user, $startdate){
 					$datetime2 	=	new DateTime($availability_duration);
 					$interval 	= 	$datetime1->diff($datetime2);
 					$difference =  	$interval->format('%h:%i');
-					$diff 		= 	str_replace(":",".",$difference); #to convert 8:30 to 8.30 so we get sum in float value
 
 					$arr_both_date_avl['projectname'] 	=	 $row2['projects'];
- 					$arr_both_date_avl['durationofit'] 	= 	$diff; 
+					$arr_both_date_avl['durationofit'] 	= 	$difference;
 					return $arr_both_date_avl;
 
 					# check if status_date is same as the selected date
 				}else if($startdate == $row2['status_date']){ 
 					if($row2['duration'] <= 8){
 						$arr_both_date_avl['projectname'] 	= 	$row2['projects'];
-						$arr_both_date_avl['durationofit'] 	= 	$row2['duration'];
+						$arr_both_date_avl['durationofit'] 	= 	(float)$row2['duration'];
 						return $arr_both_date_avl;
 					}else{
 						$arr_both_date_avl['projectname'] 	= 	$row2['projects'];
-						$arr_both_date_avl['durationofit'] 	= 	8;
+						$arr_both_date_avl['durationofit'] 	= 	'8.00';
 						return $arr_both_date_avl;
 						}
 				}else{
 					
 					$selecteddatewithtime	 			= 	$startdate." 10:30:00"; 
 					$arr_both_date_avl['projectname'] 	= 	$row2['projects'];
-					$arr_both_date_avl['durationofit'] 	= 	8;
+					$arr_both_date_avl['durationofit'] 	= 	'8.00';
 					return $arr_both_date_avl;
 				}
 			}

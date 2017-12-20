@@ -1,6 +1,5 @@
 <?php
-	// $con = mysqli_connect("localhost","sketch_tsrepo","HN4CjQsx","sketch_tsrepo");
-	$con = mysqli_connect("localhost","root","","csv_db");
+	$con = mysqli_connect("localhost","sketch_tsrepo","HN4CjQsx","sketch_tsrepo");
 	if (mysqli_connect_errno())
 	  	{
 	  		echo "Failed to connect to MySQL: " . mysqli_connect_error();
@@ -108,6 +107,7 @@ if(isset($_POST['submit'])){
 	$things = array();
 	$columns = array();
 	$tasks = array();
+	$kk = array();
 	$totaltimearr = array();
 	$totaltimearrforday = array();
 
@@ -115,7 +115,7 @@ if(isset($_POST['submit'])){
 	$end_date = $_POST['enddate'];
 	$user = $_POST['user_select'];
 
-	$sql = "SELECT project, task, time, date, task_id
+	$sql = "SELECT project, task, time, date
 			FROM csv_info 
 			WHERE user_name='".$user."' 
 			AND date>= '".$start_date."' 
@@ -128,7 +128,8 @@ if(isset($_POST['submit'])){
 		 	echo "  To ".$end_date ." </span>";
 		 	echo "<input type='submit' name='export' value='Export To CSV' class='btn btn-info' style='float:right; margin-bottom: 7px;'> <br>";
 		 	echo "
-		 	<table width='50%' class='table table-bordered'>
+		 	<table width='100%' class='table table-bordered'>
+		 	<col width='100px'>
 		 	<tr bgcolor='#d5efef'>
 		 	<th>Project</th>
 		 	<th>Task</th>
@@ -139,7 +140,10 @@ if(isset($_POST['submit'])){
 
 		 		if($re = mysqli_query($con, $r)){
 		 			while($row1 = mysqli_fetch_assoc($re)){
-		 	 			echo "<th>".$row1['date']."<br />".$row1['day']."</th>";
+		 				$dd = $row1['date']; 					#get date
+						$newday =  date("D",strtotime($dd)); 	# get day as Mon
+		 				$newdate = date("d/m",strtotime($dd));  # get date as 01/08
+		 	 			echo "<th>".$newdate."<br />".$newday."</th>";
 		 	 			$columns[]= $row1['date'];
 		 	 		}
 		 		}
@@ -148,12 +152,20 @@ if(isset($_POST['submit'])){
 			 </tr>";
 
 		while($row = mysqli_fetch_assoc($result)){
-			$things[$row['project']][$row['date']] = $row['time'];
-			$tasks[$row['project']] = $row['task'];
+			  // echo "<pre>"; print_r($row); echo "</pre>";
 
+			$things[$row['project']][$row['date']] = $row['time'];
+			// $tasks[$row['project']] = $row['task'];
+
+			$kk[$row['task']][$row['date']] = $row['time'];
+			$thg[$row['project']][$row['task']] = $row['time'];
+			$arrforpro[$row['task']] =  $row['project'];
+
+			// $query = "SELECT SUM(Left(time,2) * 3600 + substring(time, 4,2) * 60 ) AS daytime FROM csv_info WHERE user_name='".$user."' AND date= '".$row['date']."'";
 			$query = "SELECT SUM(Left(time,2) * 3600 + substring(time, 4,2) * 60 ) AS daytime FROM csv_info WHERE user_name='".$user."' AND date= '".$row['date']."'";
 			if($re = mysqli_query($con, $query)){
 		 			while($row1 = mysqli_fetch_assoc($re)){
+		 				// echo "<pre>". print_r($row1). "</pre>";
 		 				$sec = $row1['daytime'];
 					 	$H = floor($sec / 3600);
 					 	$i = ($sec / 60) % 60;
@@ -162,36 +174,48 @@ if(isset($_POST['submit'])){
 		 			}
 		 		}
 
-
 			// 	#-------To print the total time-------
-		 		 	$sql = "SELECT project, SUM(Left(time,2) * 3600 + substring(time, 4,2) * 60 ) AS totaltime FROM csv_info WHERE user_name='".$user."' 
-		 		 			AND date>= '".$start_date."'AND date<= '".$end_date."' AND project='".$row['project']."' ";
+		 		 	// $sql = "SELECT project, SUM(Left(time,2) * 3600 + substring(time, 4,2) * 60 ) AS totaltime FROM csv_info WHERE user_name='".$user."' 
+		 		 	// 		AND date>= '".$start_date."'AND date<= '".$end_date."' AND project='".$row['project']."' ";
+		 		 $sql = "SELECT task, SUM(Left(time,2) * 3600 + substring(time, 4,2) * 60 ) AS totaltime FROM csv_info WHERE user_name='".$user."' AND date>= '".$start_date."'AND date<= '".$end_date."'  AND task='".$row['task']."' ";
 
 				   	if($re = mysqli_query($con, $sql)){
-		 		 		while($row = mysqli_fetch_assoc($re)){
-					 	  	$seconds = $row['totaltime'];
+		 		 		while($roww = mysqli_fetch_assoc($re)){
+					 	  	$seconds = $roww['totaltime'];
 					 		$H = floor($seconds / 3600);
 					 		$i = ($seconds / 60) % 60;
 					 		$time = sprintf("%02d:%02d", $H, $i);
-					 		$totaltimearr[$row['project']] = $time;
+					 		$totaltimearr[$roww['task']] = $time;
 				  		}
 					 }
 		}// end while loop
+
+		// echo "<hr ><pre>"; print_r($totaltimearr); echo "</pre>";
+
+
 					#-----Print the table--------------
-		 			foreach($things as $key=>$value){
-					    echo "<tr><td>".$key."</td>";
-					    
-					    foreach ($tasks as $k=>$v) {
-					     	if($key == $k)
-					     	echo "<td>".$v."</td>";
+		 			foreach($kk as $key=>$value){
+					    echo "<tr>";
+
+					    foreach ($arrforpro as $x => $y) {
+					    	if($key == $x){
+					    	echo "<td style=' width:280px;'>".$y."</td>";
+					    	}
 					    }
+
+					    echo "<td>".$key."</td>"; // print task name
+					    
+					    // foreach ($tasks as $k=>$v) {
+					    //  	if($key == $k)
+					    //  	echo "<td>".$v."</td>"; // print the task
+					    // }
 					    foreach($columns as $column){
-					        echo "<td>".(isset($value[$column]) ? $value[$column] : 0.0)."</td>";
+					        echo "<td>".(isset($value[$column]) ? $value[$column] : 0.0)."</td>"; // prints the time
 					    }
 
 					    foreach ($totaltimearr as $a => $b) {
-					     	if($key == $a)
-					     	echo "<td>".$b."</td>";
+					     	if($key == $a) 
+					     	echo "<td>".$b."</td>";  // print total time
 					    }
 					    echo "</tr>";
 					}
@@ -203,6 +227,8 @@ if(isset($_POST['submit'])){
 				echo "</tr>";
 		echo "</table></div>";
 	}
+	 
+	 // echo "<pre>"; print_r($tasks); echo "</pre>";
 }
 ?>
 <script type="text/javascript">
@@ -211,4 +237,4 @@ if(isset($_POST['submit'])){
 		document.getElementById('startdate').value = "<?php echo $_POST['startdate'];?>";
 		document.getElementById('enddate').value = "<?php echo $_POST['enddate'];?>";
 	});
-</script>
+</script> 
