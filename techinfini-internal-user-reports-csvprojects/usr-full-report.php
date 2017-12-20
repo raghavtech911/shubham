@@ -4,6 +4,63 @@
 	  	{
 	  		echo "Failed to connect to MySQL: " . mysqli_connect_error();
 		}
+
+	function get_data($con, $user, $startdate){
+			# Check if given date falls between the status and Availability time
+			$sql2 = "SELECT * FROM intrnt_st_mng WHERE user_id = '".$user."' AND status_date <= '".$startdate."' AND availability_time>='".$startdate."' " ;
+			if($result2 = mysqli_query($con, $sql2)){
+				if (mysqli_num_rows($result2)) {
+	    				
+				while ($row2 = mysqli_fetch_assoc($result2) ) {
+					$datetime 				= explode(" ",$row2['availability_time']);
+					$availability_time 		= $datetime[0];
+					$availability_duration 	= $datetime[1];
+
+					# check if availability time is same as the selected date and status date
+					if($startdate == $availability_time && $startdate == $row2['status_date']){ 
+							
+							$arr_both_date_avl['projectname'] 	= 	$row2['projects'];
+							$arr_both_date_avl['durationofit'] 	= 	$row2['duration'];
+							return $arr_both_date_avl;
+
+							# check if availability time is same as the selected date
+					 }else if($startdate == $availability_time){ 
+
+						$datetime1 	= 	new DateTime('11:30:00');
+						$datetime2 	=	new DateTime($availability_duration);
+						$interval 	= 	$datetime1->diff($datetime2);
+						$difference =  	$interval->format('%h:%i');
+
+						$arr_both_date_avl['projectname'] 	=	 $row2['projects'];
+						$arr_both_date_avl['durationofit'] 	= 	$difference;
+						return $arr_both_date_avl;
+
+						# check if status_date is same as the selected date
+					}else if($startdate == $row2['status_date']){ 
+						if($row2['duration'] <= 8){
+							$arr_both_date_avl['projectname'] 	= 	$row2['projects'];
+							$arr_both_date_avl['durationofit'] 	= 	(float)$row2['duration'];
+							return $arr_both_date_avl;
+						}else{
+							$arr_both_date_avl['projectname'] 	= 	$row2['projects'];
+							$arr_both_date_avl['durationofit'] 	= 	'8.00';
+							return $arr_both_date_avl;
+							}
+					}else{
+						
+						$selecteddatewithtime	 			= 	$startdate." 10:30:00"; 
+						$arr_both_date_avl['projectname'] 	= 	$row2['projects'];
+						$arr_both_date_avl['durationofit'] 	= 	'8.00';
+						return $arr_both_date_avl;
+					}
+				}
+			}else{
+				// echo "NO Data Available";
+				$arr_both_date_avl['projectname'] = "No data";
+				return $arr_both_date_avl;
+				}
+		}
+	}
 ?>
 <!DOCTYPE html>
 <html>
@@ -52,7 +109,7 @@
   		crossorigin="anonymous"></script>
   		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
   		<script type="text/javascript"> $(window).load(function() { $(".loader").fadeOut("slow"); });
-</script>
+	</script>
   		
 </head>
 <body>
@@ -105,8 +162,6 @@ if(isset($_POST['submit'])){
 		echo "<div class='container-fluid'>";
 		 	echo " From ".$start_date.""; 
 		 	echo "  To ".$end_date ." </span>";
-		 	// echo "<input type='submit' name='export' value='Export To CSV' class='btn btn-info' style='float:right; margin-bottom: 7px;'> <br>";
-		 	// echo "<table width='100%' class='table table-bordered'>";
 		 	echo "<table border='1' width='100%'>";
 		 	echo"
 		 	<col width='100px'>
@@ -133,16 +188,6 @@ if(isset($_POST['submit'])){
 		 	 		}
 		 		}
 
-		 	/*
-		 	#------- to get the all dates as columns names---------
-		 	$begin = new DateTime( $start_date );
-			$end   = new DateTime( $end_date );
-
-			for($i = $begin; $i <= $end; $i->modify('+1 day')){
-				echo "<th colspan='2'>".$i->format("Y-m-d")."</th>";
-				$columns[] = $i->format("Y-m-d");
-			}*/
-
 		echo "<th rowspan='2'>Total Time <small>In hours</small></th>
 			  <th rowspan='2'>Total Time to do <small></small></th>
 			</tr>";
@@ -150,10 +195,8 @@ if(isset($_POST['submit'])){
 		echo "<tr>";
 		if($re = mysqli_query($con, $r)){
 			while($row1 = mysqli_fetch_assoc($re)){
-		 // for($i = $begin; $i <= $end; $i->modify('+1 day')){
             	 echo "<th bgcolor = '#d5efef'>Done</th>";
              	echo "<th bgcolor = '#d5efef'>To do</th>";
-              // }
         	}
         }
           echo "</tr>";
@@ -251,63 +294,6 @@ if(isset($_POST['submit'])){
 	}
 }
 
-#----------------------------------Function--------------------------------------------
-function get_data($con, $user, $startdate){
-		# Check if given date falls between the status and Availability time
-		$sql2 = "SELECT * FROM intrnt_st_mng WHERE user_id = '".$user."' AND status_date <= '".$startdate."' AND availability_time>='".$startdate."' " ;
-		if($result2 = mysqli_query($con, $sql2)){
-			if (mysqli_num_rows($result2)) {
-    				
-			while ($row2 = mysqli_fetch_assoc($result2) ) {
-				$datetime 				= explode(" ",$row2['availability_time']);
-				$availability_time 		= $datetime[0];
-				$availability_duration 	= $datetime[1];
-
-				# check if availability time is same as the selected date and status date
-				if($startdate == $availability_time && $startdate == $row2['status_date']){ 
-						
-						$arr_both_date_avl['projectname'] 	= 	$row2['projects'];
-						$arr_both_date_avl['durationofit'] 	= 	$row2['duration'];
-						return $arr_both_date_avl;
-
-						# check if availability time is same as the selected date
-				 }else if($startdate == $availability_time){ 
-
-					$datetime1 	= 	new DateTime('11:30:00');
-					$datetime2 	=	new DateTime($availability_duration);
-					$interval 	= 	$datetime1->diff($datetime2);
-					$difference =  	$interval->format('%h:%i');
-
-					$arr_both_date_avl['projectname'] 	=	 $row2['projects'];
-					$arr_both_date_avl['durationofit'] 	= 	$difference;
-					return $arr_both_date_avl;
-
-					# check if status_date is same as the selected date
-				}else if($startdate == $row2['status_date']){ 
-					if($row2['duration'] <= 8){
-						$arr_both_date_avl['projectname'] 	= 	$row2['projects'];
-						$arr_both_date_avl['durationofit'] 	= 	(float)$row2['duration'];
-						return $arr_both_date_avl;
-					}else{
-						$arr_both_date_avl['projectname'] 	= 	$row2['projects'];
-						$arr_both_date_avl['durationofit'] 	= 	'8.00';
-						return $arr_both_date_avl;
-						}
-				}else{
-					
-					$selecteddatewithtime	 			= 	$startdate." 10:30:00"; 
-					$arr_both_date_avl['projectname'] 	= 	$row2['projects'];
-					$arr_both_date_avl['durationofit'] 	= 	'8.00';
-					return $arr_both_date_avl;
-				}
-			}
-		}else{
-			// echo "NO Data Available";
-			$arr_both_date_avl['projectname'] = "No data";
-			return $arr_both_date_avl;
-			}
-	}
-}
 ?>
 <script type="text/javascript">
 	$(function(){
