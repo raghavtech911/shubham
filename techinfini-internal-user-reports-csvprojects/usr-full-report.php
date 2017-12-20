@@ -251,20 +251,6 @@ if(isset($_POST['submit'])){
 	}
 }
 
-/*
-TASK:
- PHP File to generate another user report about the assigned projects and their duration from the database 
-
- Completed: 
-  Generated a report which shows how much time is alloted to the project and how much time is spent on it.
-
-  Remaining: 
-   Styling of the table on view page
-
-   LINK:
-
-*/
-
 #----------------------------------Function--------------------------------------------
 function get_data($con, $user, $startdate){
 		# Check if given date falls between the status and Availability time
